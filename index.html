@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physique-Chimie Facile</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #e0e0e0;
+        }
+
+        /* Header */
+        header {
+            background: #0f1419;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 2px solid #2a3f5f;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #4a9eff;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #c0c0c0;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #4a9eff;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        /* Page d'accueil */
+        .hero {
+            background: linear-gradient(135deg, #1e2a3a 0%, #2a3f5f 100%);
+            border-radius: 20px;
+            padding: 4rem 2rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            margin-bottom: 2rem;
+            border: 1px solid #2a3f5f;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            color: #4a9eff;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 20px rgba(74, 158, 255, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #b0b0b0;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%);
+            color: #e0e0e0;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #4a9eff;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(74, 158, 255, 0.4);
+            background: linear-gradient(135deg, #3a6ab8 0%, #2e4c92 100%);
+        }
+
+        /* Cartes chapitres */
+        .chapters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .chapter-card {
+            background: linear-gradient(135deg, #1e2a3a 0%, #2a3f5f 100%);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            border: 1px solid #2a3f5f;
+        }
+
+        .chapter-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(74, 158, 255, 0.3);
+        }
+
+        .chapter-card.available {
+            border-left: 5px solid #4a9eff;
+        }
+
+        .chapter-card.coming-soon {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .chapter-card h3 {
+            color: #4a9eff;
+            margin-bottom: 0.5rem;
+        }
+
+        .chapter-card p {
+            color: #b0b0b0;
+        }
+
+        .chapter-card .status {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-top: 1rem;
+        }
+
+        .status.available {
+            background: #2a5298;
+            color: #e0e0e0;
+        }
+
+        .status.coming {
+            background: #3d3d3d;
+            color: #909090;
+        }
+
+        /* Page Chapitre */
+        .chapter-page {
+            background: linear-gradient(135deg, #1e2a3a 0%, #2a3f5f 100%);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 1px solid #2a3f5f;
+        }
+
+        .chapter-nav {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 0.8rem 1.5rem;
+            background: #1a1a2e;
+            border: 1px solid #2a3f5f;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+            color: #b0b0b0;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%);
+            color: #e0e0e0;
+            border-color: #4a9eff;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Cours */
+        .course-section {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: #1a1a2e;
+            border-radius: 10px;
+            border: 1px solid #2a3f5f;
+        }
+
+        .course-section h3 {
+            color: #4a9eff;
+            margin-bottom: 1rem;
+        }
+
+        .course-section h4 {
+            color: #6eb3ff;
+            margin: 1rem 0 0.5rem 0;
+        }
+
+        .course-section p {
+            line-height: 1.6;
+            margin-bottom: 0.8rem;
+            color: #c0c0c0;
+        }
+
+        .course-section ul {
+            color: #c0c0c0;
+        }
+
+        .definition {
+            background: #1a2332;
+            padding: 1rem;
+            border-left: 4px solid #4a9eff;
+            border-radius: 5px;
+            margin: 1rem 0;
+        }
+
+        .example {
+            background: #1a2d1a;
+            padding: 1rem;
+            border-left: 4px solid #4a9e4a;
+            border-radius: 5px;
+            margin: 1rem 0;
+        }
+
+        /* Schéma atome */
+        .atom-diagram {
+            display: flex;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+
+        .atom {
+            position: relative;
+            width: 200px;
+            height: 200px;
+        }
+
+        .nucleus {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            background: radial-gradient(circle, #ff6b6b, #c92a2a);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+
+        .electron-orbit {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 2px dashed #4a9eff;
+            border-radius: 50%;
+        }
+
+        .orbit-1 { width: 80px; height: 80px; }
+        .orbit-2 { width: 140px; height: 140px; }
+
+        .electron {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: #4a9eff;
+            border-radius: 50%;
+            animation: orbit 3s linear infinite;
+            box-shadow: 0 0 10px rgba(74, 158, 255, 0.8);
+        }
+
+        @keyframes orbit {
+            from { transform: rotate(0deg) translateX(40px) rotate(0deg); }
+            to { transform: rotate(360deg) translateX(40px) rotate(-360deg); }
+        }
+
+        /* Jeux */
+        .game-container {
+            background: #1a1a2e;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid #2a3f5f;
+        }
+
+        .game-container h3 {
+            color: #4a9eff;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .game-area {
+            background: #0f1419;
+            border-radius: 10px;
+            padding: 2rem;
+            min-height: 300px;
+            border: 1px solid #2a3f5f;
+        }
+
+        .atoms-palette {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .atom-item {
+            padding: 1rem 1.5rem;
+            background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%);
+            color: #e0e0e0;
+            border-radius: 10px;
+            cursor: grab;
+            font-weight: bold;
+            transition: transform 0.2s;
+            border: 1px solid #4a9eff;
+        }
+
+        .atom-item:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(74, 158, 255, 0.5);
+        }
+
+        .atom-item:active {
+            cursor: grabbing;
+        }
+
+        .atom-item.selected {
+            box-shadow: 0 0 20px rgba(74, 158, 255, 0.8);
+        }
+
+        .molecule-builder {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            align-items: center;
+            min-height: 100px;
+            padding: 2rem;
+            background: #1a1a2e;
+            border-radius: 10px;
+            border: 3px dashed #2a3f5f;
+        }
+
+        .drop-zone {
+            width: 80px;
+            height: 80px;
+            border: 3px dashed #4a9eff;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #4a9eff;
+            transition: all 0.3s;
+        }
+
+        .drop-zone.filled {
+            background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%);
+            color: #e0e0e0;
+            border-style: solid;
+            box-shadow: 0 0 15px rgba(74, 158, 255, 0.5);
+        }
+
+        .game-controls {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .quiz-option {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            background: #1a1a2e;
+            border: 2px solid #2a3f5f;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: left;
+            color: #c0c0c0;
+        }
+
+        .quiz-option:hover {
+            background: #2a3f5f;
+            border-color: #4a9eff;
+        }
+
+        .quiz-option.correct {
+            background: #1a3d1a;
+            color: #90ee90;
+            border-color: #4a9e4a;
+        }
+
+        .quiz-option.incorrect {
+            background: #3d1a1a;
+            color: #ff9090;
+            border-color: #9e4a4a;
+        }
+
+        .score-display {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #4a9eff;
+            margin: 1rem 0;
+        }
+
+        .feedback {
+            text-align: center;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-top: 1rem;
+            font-weight: bold;
+        }
+
+        .feedback.success {
+            background: #1a3d1a;
+            color: #90ee90;
+            border: 1px solid #4a9e4a;
+        }
+
+        .feedback.error {
+            background: #3d1a1a;
+            color: #ff9090;
+            border: 1px solid #9e4a4a;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .nav-links { gap: 1rem; }
+            .chapter-nav { flex-direction: column; }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Drag and drop */
+        .dragging {
+            opacity: 0.5;
+        }
+
+        .match-game {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .match-column {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .match-item {
+            padding: 1rem;
+            background: #2a5298;
+            color: #e0e0e0;
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s;
+            border: 1px solid #4a9eff;
+        }
+
+        .match-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(74, 158, 255, 0.4);
+        }
+
+        .match-item.selected {
+            background: #1e3c72;
+            box-shadow: 0 0 20px rgba(74, 158, 255, 0.6);
+        }
+
+        .match-item.matched {
+            background: #1a3d1a;
+            cursor: default;
+            border-color: #4a9e4a;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">⚛️ Physique-Chimie Facile</div>
+            <ul class="nav-links">
+                <li><a href="#" onclick="showPage('home')">Accueil</a></li>
+                <li><a href="#" onclick="showPage('chapters')">Chapitres</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <!-- Page d'accueil -->
+        <div id="home-page" class="page">
+            <div class="hero">
+                <h1>🔬 Bienvenue sur Physique-Chimie Facile !</h1>
+                <p>Apprends la physique-chimie en t'amusant avec des cours clairs et des mini-jeux interactifs</p>
+                <a href="#" class="btn" onclick="showPage('chapters')">Découvrir les chapitres</a>
+            </div>
+        </div>
+
+        <!-- Page Chapitres -->
+        <div id="chapters-page" class="page hidden">
+            <h2 style="color: #4a9eff; text-align: center; margin-bottom: 2rem;">📚 Les Chapitres</h2>
+            <div class="chapters-grid">
+                <div class="chapter-card available" onclick="showChapter(1)">
+                    <h3>Chapitre 1</h3>
+                    <p><strong>Atomes et molécules</strong></p>
+                    <p>Découvre la structure de la matière, les atomes et comment ils forment des molécules.</p>
+                    <span class="status available">✅ Disponible</span>
+                </div>
+                <div class="chapter-card coming-soon">
+                    <h3>Chapitre 2</h3>
+                    <p><strong>États de la matière</strong></p>
+                    <p>Solide, liquide, gaz : comprends les différents états de la matière.</p>
+                    <span class="status coming">🔜 À venir</span>
+                </div>
+                <div class="chapter-card coming-soon">
+                    <h3>Chapitre 3</h3>
+                    <p><strong>Transformations chimiques</strong></p>
+                    <p>Explore les réactions chimiques et leurs propriétés.</p>
+                    <span class="status coming">🔜 À venir</span>
+                </div>
+                <div class="chapter-card coming-soon">
+                    <h3>Chapitre 4</h3>
+                    <p><strong>Forces et interactions</strong></p>
+                    <p>Découvre les forces qui régissent le monde physique.</p>
+                    <span class="status coming">🔜 À venir</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chapitre 1 -->
+        <div id="chapter1-page" class="page hidden">
+            <div class="chapter-page">
+                <h2 style="color: #4a9eff; margin-bottom: 1rem;">Chapitre 1 : Atomes et molécules</h2>
+                
+                <div class="chapter-nav">
+                    <button class="tab-btn active" onclick="showTab('cours')">📖 Cours</button>
+                    <button class="tab-btn" onclick="showTab('jeux')">🎮 Mini-jeux</button>
+                </div>
+
+                <!-- Contenu Cours -->
+                <div id="cours-tab" class="tab-content active">
+                    <div class="course-section">
+                        <h3>🔬 Qu'est-ce qu'un atome ?</h3>
+                        <p>L'atome est la plus petite partie d'un élément chimique qui conserve les propriétés de cet élément. C'est le constituant de base de toute la matière qui nous entoure.</p>
+                        
+                        <div class="definition">
+                            <strong>📌 Définition :</strong> Un atome est constitué d'un noyau central entouré d'électrons qui gravitent autour.
+                        </div>
+
+                        <h4>Structure d'un atome</h4>
+                        <div class="atom-diagram">
+                            <div class="atom">
+                                <div class="nucleus">Noyau</div>
+                                <div class="electron-orbit orbit-1">
+                                    <div class="electron" style="top: 0; left: 50%; transform: translateX(-50%);"></div>
+                                </div>
+                                <div class="electron-orbit orbit-2">
+                                    <div class="electron" style="top: 0; left: 50%; transform: translateX(-50%); animation-delay: -1s;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h4>⚡ Les composants d'un atome</h4>
+                        <p><strong>Le noyau</strong> est situé au centre de l'atome. Il contient :</p>
+                        <ul style="margin-left: 2rem; line-height: 1.8;">
+                            <li><strong>Les protons</strong> : particules chargées positivement (+)</li>
+                            <li><strong>Les neutrons</strong> : particules neutres (pas de charge)</li>
+                        </ul>
+                        
+                        <p style="margin-top: 1rem;"><strong>Les électrons</strong> gravitent autour du noyau :</p>
+                        <ul style="margin-left: 2rem; line-height: 1.8;">
+                            <li>Particules chargées négativement (-)</li>
+                            <li>Beaucoup plus légers que les protons et neutrons</li>
+                            <li>Un atome neutre a autant de protons que d'électrons</li>
+                        </ul>
+                    </div>
+
+                    <div class="course-section">
+                        <h3>🧬 Qu'est-ce qu'une molécule ?</h3>
+                        <p>Une molécule est un assemblage de plusieurs atomes liés entre eux. Ces atomes peuvent être identiques ou différents.</p>
+                        
+                        <div class="definition">
+                            <strong>📌 Définition :</strong> Une molécule est formée par l'association de deux ou plusieurs atomes liés par des liaisons chimiques.
+                        </div>
+
+                        <h4>🆚 Différence entre atome et molécule</h4>
+                        <ul style="margin-left: 2rem; line-height: 1.8;">
+                            <li><strong>Atome</strong> : une seule particule (ex: un atome d'oxygène O)</li>
+                            <li><strong>Molécule</strong> : plusieurs atomes liés (ex: une molécule de dioxygène O₂)</li>
+                        </ul>
+
+                        <div class="example">
+                            <h4>💡 Exemples de molécules courantes</h4>
+                            <ul style="margin-left: 2rem; line-height: 2;">
+                                <li><strong>H₂O (eau)</strong> : 2 atomes d'hydrogène + 1 atome d'oxygène</li>
+                                <li><strong>CO₂ (dioxyde de carbone)</strong> : 1 atome de carbone + 2 atomes d'oxygène</li>
+                                <li><strong>CH₄ (méthane)</strong> : 1 atome de carbone + 4 atomes d'hydrogène</li>
+                                <li><strong>O₂ (dioxygène)</strong> : 2 atomes d'oxygène</li>
+                                <li><strong>NH₃ (ammoniac)</strong> : 1 atome d'azote + 3 atomes d'hydrogène</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contenu Jeux -->
+                <div id="jeux-tab" class="tab-content">
+                    <!-- Jeu 1: Construis la molécule -->
+                    <div class="game-container">
+                        <h3>🧪 Jeu 1 : Construis la molécule</h3>
+                        <div class="game-area">
+                            <p style="text-align: center; font-size: 1.2rem; margin-bottom: 1rem;">
+                                Construis la molécule : <strong id="target-molecule">H₂O</strong>
+                            </p>
+                            <div class="atoms-palette" id="atoms-palette">
+                                <!-- Atomes générés dynamiquement -->
+                            </div>
+                            <div class="molecule-builder" id="molecule-builder">
+                                <!-- Zones de dépôt générées dynamiquement -->
+                            </div>
+                            <div id="game1-feedback"></div>
+                            <div class="game-controls">
+                                <button class="btn" onclick="checkMolecule()">Vérifier</button>
+                                <button class="btn" onclick="resetGame1()">Recommencer</button>
+                                <button class="btn" onclick="newMolecule()">Nouvelle molécule</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Jeu 2: Formule chimique -->
+                    <div class="game-container">
+                        <h3>📝 Jeu 2 : Quelle est la formule ?</h3>
+                        <div class="game-area">
+                            <p style="text-align: center; font-size: 1.2rem; margin-bottom: 1rem;">
+                                Quelle est la formule de : <strong id="molecule-name">Eau</strong> ?
+                            </p>
+                            <div id="formula-options"></div>
+                            <div id="game2-feedback"></div>
+                            <div class="game-controls">
+                                <button class="btn" onclick="newFormulaQuestion()">Question suivante</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Jeu 3: Atome ou molécule -->
+                    <div class="game-container">
+                        <h3>🎯 Jeu 3 : Atome ou molécule ?</h3>
+                        <div class="game-area">
+                            <div class="score-display">Score : <span id="game3-score">0</span> / <span id="game3-total">0</span></div>
+                            <p style="text-align: center; font-size: 1.5rem; margin: 2rem 0;">
+                                <strong id="element-display">O</strong>
+                            </p>
+                            <div class="game-controls">
+                                <button class="btn" onclick="answerAtomOrMolecule('atome')">Atome</button>
+                                <button class="btn" onclick="answerAtomOrMolecule('molécule')">Molécule</button>
+                            </div>
+                            <div id="game3-feedback"></div>
+                        </div>
+                    </div>
+
+                    <!-- Jeu 4: Associe la molécule -->
+                    <div class="game-container">
+                        <h3>🔗 Jeu 4 : Associe nom et formule</h3>
+                        <div class="game-area">
+                            <p style="text-align: center; margin-bottom: 1rem;">Clique sur un nom puis sur sa formule correspondante</p>
+                            <div class="score-display">Paires trouvées : <span id="game4-score">0</span> / 5</div>
+                            <div class="match-game">
+                                <div class="match-column" id="names-column"></div>
+                                <div class="match-column" id="formulas-column"></div>
+                            </div>
+                            <div id="game4-feedback"></div>
+                            <div class="game-controls">
+                                <button class="btn" onclick="resetGame4()">Recommencer</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Jeu 5: Mini-quiz -->
+                    <div class="game-container">
+                        <h3>🏆 Jeu 5 : Mini-quiz final</h3>
+                        <div class="game-area">
+                            <div class="score-display">Question <span id="quiz-current">1</span> / 5</div>
+                            <p style="font-size: 1.2rem; margin: 1rem 0;" id="quiz-question"></p>
+                            <div id="quiz-options"></div>
+                            <div id="quiz-feedback"></div>
+                            <div class="game-controls">
+                                <button class="btn" id="quiz-next-btn" onclick="nextQuizQuestion()" style="display: none;">Question suivante</button>
+                                <button class="btn" id="quiz-restart-btn" onclick="startQuiz()" style="display: none;">Recommencer le quiz</button>
+                            </div>
+                            <div id="quiz-final-score"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 2rem;">
+                    <button class="btn" onclick="showPage('chapters')">← Retour aux chapitres</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Navigation entre pages
+        function showPage(pageName) {
+            document.querySelectorAll('.page').forEach(p => p.classList.add('hidden'));
+            document.getElementById(pageName + '-page').classList.remove('hidden');
+        }
+
+        function showChapter(num) {
+            if (num === 1) {
+                showPage('chapter1');
+            }
+        }
+
+        function showTab(tabName) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            event.target.classList.add('active');
+            document.getElementById(tabName + '-tab').classList.add('active');
+        }
+
+        // Données des molécules
+        const molecules = {
+            'H₂O': { name: 'Eau', atoms: ['H', 'H', 'O'] },
+            'CO₂': { name: 'Dioxyde de carbone', atoms: ['C', 'O', 'O'] },
+            'CH₄': { name: 'Méthane', atoms: ['C', 'H', 'H', 'H', 'H'] },
+            'O₂': { name: 'Dioxygène', atoms: ['O', 'O'] },
+            'NH₃': { name: 'Ammoniac', atoms: ['N', 'H', 'H', 'H'] }
+        };
+
+        // JEU 1: Construis la molécule
+        let currentMolecule = 'H₂O';
+        let userBuiltMolecule = [];
+
+        function newMolecule() {
+            const formulas = Object.keys(molecules);
+            currentMolecule = formulas[Math.floor(Math.random() * formulas.length)];
+            document.getElementById('target-molecule').textContent = currentMolecule;
+            resetGame1();
+        }
+
+        function resetGame1() {
+            userBuiltMolecule = [];
+            const builder = document.getElementById('molecule-builder');
+            const palette = document.getElementById('atoms-palette');
+            const feedback = document.getElementById('game1-feedback');
+            
+            feedback.innerHTML = '';
+            builder.innerHTML = '';
+            palette.innerHTML = '';
+
+            // Créer les zones de dépôt
+            const atomsNeeded = molecules[currentMolecule].atoms;
+            atomsNeeded.forEach((atom, i) => {
+                const zone = document.createElement('div');
+                zone.className = 'drop-zone';
+                zone.dataset.index = i;
+                zone.textContent = '?';
+                zone.addEventListener('click', function() {
+                    if (selectedAtom) {
+                        placeAtom(i, selectedAtom);
+                        selectedAtom = null;
+                        palette.querySelectorAll('.atom-item').forEach(a => a.classList.remove('selected'));
+                    }
+                });
+                builder.appendChild(zone);
+            });
+
+            // Créer la palette d'atomes (tous les atomes possibles)
+            const allAtoms = ['H', 'C', 'O', 'N'];
+            allAtoms.forEach(atom => {
+                const atomEl = document.createElement('div');
+                atomEl.className = 'atom-item';
+                atomEl.textContent = atom;
+                atomEl.addEventListener('click', function() {
+                    selectedAtom = atom;
+                    palette.querySelectorAll('.atom-item').forEach(a => a.classList.remove('selected'));
+                    atomEl.classList.add('selected');
+                });
+                palette.appendChild(atomEl);
+            });
+        }
+
+        let selectedAtom = null;
+
+        function placeAtom(index, atom) {
+            userBuiltMolecule[index] = atom;
+            const zones = document.querySelectorAll('.drop-zone');
+            zones[index].textContent = atom;
+            zones[index].classList.add('filled');
+        }
+
+        function checkMolecule() {
+            const correct = molecules[currentMolecule].atoms;
+            const feedback = document.getElementById('game1-feedback');
+            
+            if (userBuiltMolecule.length !== correct.length) {
+                feedback.innerHTML = '<div class="feedback error">❌ La molécule n\'est pas complète !</div>';
+                return;
+            }
+
+            const userSorted = [...userBuiltMolecule].sort().join('');
+            const correctSorted = [...correct].sort().join('');
+            
+            if (userSorted === correctSorted) {
+                feedback.innerHTML = '<div class="feedback success">🎉 Bravo ! Tu as construit la molécule correctement !</div>';
+            } else {
+                feedback.innerHTML = '<div class="feedback error">❌ Ce n\'est pas la bonne combinaison. Essaie encore !</div>';
+            }
+        }
+
+        // JEU 2: Formule chimique
+        function newFormulaQuestion() {
+            const formulas = Object.keys(molecules);
+            const correct = formulas[Math.floor(Math.random() * formulas.length)];
+            document.getElementById('molecule-name').textContent = molecules[correct].name;
+            
+            // Créer 3 options aléatoires
+            const options = [correct];
+            while (options.length < 3) {
+                const random = formulas[Math.floor(Math.random() * formulas.length)];
+                if (!options.includes(random)) options.push(random);
+            }
+            
+            // Mélanger les options
+            options.sort(() => Math.random() - 0.5);
+            
+            const container = document.getElementById('formula-options');
+            container.innerHTML = '';
+            
+            options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'quiz-option';
+                btn.textContent = opt;
+                btn.onclick = () => checkFormula(opt, correct);
+                container.appendChild(btn);
+            });
+            
+            document.getElementById('game2-feedback').innerHTML = '';
+        }
+
+        function checkFormula(selected, correct) {
+            const feedback = document.getElementById('game2-feedback');
+            const btns = document.querySelectorAll('#formula-options .quiz-option');
+            
+            btns.forEach(btn => {
+                btn.disabled = true;
+                if (btn.textContent === correct) {
+                    btn.classList.add('correct');
+                } else if (btn.textContent === selected) {
+                    btn.classList.add('incorrect');
+                }
+            });
+            
+            if (selected === correct) {
+                feedback.innerHTML = '<div class="feedback success">✅ Exact ! Bonne réponse !</div>';
+            } else {
+                feedback.innerHTML = `<div class="feedback error">❌ Non, c'était ${correct}</div>`;
+            }
+        }
+
+        // JEU 3: Atome ou molécule
+        let game3Score = 0;
+        let game3Total = 0;
+        const atomsOrMolecules = [
+            { display: 'O', type: 'atome', name: 'Oxygène' },
+            { display: 'H₂O', type: 'molécule', name: 'Eau' },
+            { display: 'C', type: 'atome', name: 'Carbone' },
+            { display: 'CO₂', type: 'molécule', name: 'Dioxyde de carbone' },
+            { display: 'N', type: 'atome', name: 'Azote' },
+            { display: 'H', type: 'atome', name: 'Hydrogène' },
+            { display: 'O₂', type: 'molécule', name: 'Dioxygène' },
+            { display: 'CH₄', type: 'molécule', name: 'Méthane' },
+            { display: 'NH₃', type: 'molécule', name: 'Ammoniac' }
+        ];
+        let currentElement = null;
+
+        function newElement() {
+            currentElement = atomsOrMolecules[Math.floor(Math.random() * atomsOrMolecules.length)];
+            document.getElementById('element-display').textContent = currentElement.display;
+            document.getElementById('game3-feedback').innerHTML = '';
+        }
+
+        function answerAtomOrMolecule(answer) {
+            if (!currentElement) {
+                newElement();
+                return;
+            }
+            
+            game3Total++;
+            const feedback = document.getElementById('game3-feedback');
+            
+            if (answer === currentElement.type) {
+                game3Score++;
+                feedback.innerHTML = `<div class="feedback success">✅ Correct ! C'est un ${currentElement.type}</div>`;
+            } else {
+                feedback.innerHTML = `<div class="feedback error">❌ Non, c'est un ${currentElement.type}</div>`;
+            }
+            
+            document.getElementById('game3-score').textContent = game3Score;
+            document.getElementById('game3-total').textContent = game3Total;
+            
+            setTimeout(newElement, 1500);
+        }
+
+        // JEU 4: Associe la molécule
+        let matchPairs = [];
+        let selectedName = null;
+        let selectedFormula = null;
+        let matchedPairs = 0;
+
+        function resetGame4() {
+            matchedPairs = 0;
+            selectedName = null;
+            selectedFormula = null;
+            document.getElementById('game4-score').textContent = '0';
+            document.getElementById('game4-feedback').innerHTML = '';
+            
+            const formulas = Object.keys(molecules);
+            matchPairs = formulas.map(f => ({ name: molecules[f].name, formula: f }));
+            matchPairs.sort(() => Math.random() - 0.5);
+            
+            const namesCol = document.getElementById('names-column');
+            const formulasCol = document.getElementById('formulas-column');
+            namesCol.innerHTML = '';
+            formulasCol.innerHTML = '';
+            
+            const shuffledFormulas = [...matchPairs].sort(() => Math.random() - 0.5);
+            
+            matchPairs.forEach((pair, i) => {
+                const nameItem = document.createElement('div');
+                nameItem.className = 'match-item';
+                nameItem.textContent = pair.name;
+                nameItem.dataset.id = i;
+                nameItem.onclick = () => selectName(i);
+                namesCol.appendChild(nameItem);
+            });
+            
+            shuffledFormulas.forEach((pair, i) => {
+                const formulaItem = document.createElement('div');
+                formulaItem.className = 'match-item';
+                formulaItem.textContent = pair.formula;
+                const originalIndex = matchPairs.findIndex(p => p.formula === pair.formula);
+                formulaItem.dataset.id = originalIndex;
+                formulaItem.onclick = () => selectFormula(originalIndex);
+                formulasCol.appendChild(formulaItem);
+            });
+        }
+
+        function selectName(id) {
+            const item = document.querySelector(`#names-column .match-item[data-id="${id}"]`);
+            if (item.classList.contains('matched')) return;
+            
+            document.querySelectorAll('#names-column .match-item').forEach(i => i.classList.remove('selected'));
+            item.classList.add('selected');
+            selectedName = id;
+            
+            if (selectedFormula !== null) checkMatch();
+        }
+
+        function selectFormula(id) {
+            const item = document.querySelector(`#formulas-column .match-item[data-id="${id}"]`);
+            if (item.classList.contains('matched')) return;
+            
+            document.querySelectorAll('#formulas-column .match-item').forEach(i => i.classList.remove('selected'));
+            item.classList.add('selected');
+            selectedFormula = id;
+            
+            if (selectedName !== null) checkMatch();
+        }
+
+        function checkMatch() {
+            if (selectedName === selectedFormula) {
+                const nameItem = document.querySelector(`#names-column .match-item[data-id="${selectedName}"]`);
+                const formulaItem = document.querySelector(`#formulas-column .match-item[data-id="${selectedFormula}"]`);
+                nameItem.classList.add('matched');
+                formulaItem.classList.add('matched');
+                nameItem.classList.remove('selected');
+                formulaItem.classList.remove('selected');
+                
+                matchedPairs++;
+                document.getElementById('game4-score').textContent = matchedPairs;
+                
+                if (matchedPairs === 5) {
+                    document.getElementById('game4-feedback').innerHTML = '<div class="feedback success">🎉 Félicitations ! Tu as trouvé toutes les paires !</div>';
+                }
+            } else {
+                document.getElementById('game4-feedback').innerHTML = '<div class="feedback error">❌ Ce n\'est pas la bonne paire</div>';
+                setTimeout(() => {
+                    document.querySelectorAll('.match-item').forEach(i => i.classList.remove('selected'));
+                    document.getElementById('game4-feedback').innerHTML = '';
+                }, 1000);
+            }
+            
+            selectedName = null;
+            selectedFormula = null;
+        }
+
+        // JEU 5: Mini-quiz
+        const quizBank = [
+            { q: "Combien d'atomes contient une molécule d'eau (H₂O) ?", a: ["3", "2", "4", "5"], correct: 0 },
+            { q: "Quelle particule est chargée positivement ?", a: ["Le proton", "L'électron", "Le neutron", "L'atome"], correct: 0 },
+            { q: "Où se trouvent les électrons dans un atome ?", a: ["Autour du noyau", "Dans le noyau", "À l'extérieur de l'atome", "Partout"], correct: 0 },
+            { q: "Qu'est-ce qui se trouve dans le noyau d'un atome ?", a: ["Protons et neutrons", "Électrons", "Seulement des protons", "Seulement des neutrons"], correct: 0 },
+            { q: "Quelle est la formule du dioxyde de carbone ?", a: ["CO₂", "H₂O", "O₂", "CH₄"], correct: 0 },
+            { q: "Combien d'atomes d'hydrogène dans CH₄ ?", a: ["4", "1", "3", "2"], correct: 0 },
+            { q: "Quelle particule n'a pas de charge électrique ?", a: ["Le neutron", "Le proton", "L'électron", "L'ion"], correct: 0 },
+            { q: "Le dioxygène (O₂) est composé de :", a: ["2 atomes d'oxygène", "1 atome d'oxygène", "3 atomes d'oxygène", "2 atomes différents"], correct: 0 },
+            { q: "Qu'est-ce qu'une molécule ?", a: ["Un assemblage d'atomes", "Un seul atome", "Une particule du noyau", "Un électron"], correct: 0 },
+            { q: "La formule de l'eau est :", a: ["H₂O", "O₂", "CO₂", "H₂"], correct: 0 },
+            { q: "Un atome neutre a :", a: ["Autant de protons que d'électrons", "Plus de protons", "Plus d'électrons", "Aucune charge"], correct: 0 },
+            { q: "Le méthane (CH₄) contient quel atome ?", a: ["Carbone et hydrogène", "Carbone et oxygène", "Hydrogène et oxygène", "Azote et hydrogène"], correct: 0 },
+            { q: "Quelle est la plus petite partie d'un élément ?", a: ["Un atome", "Une molécule", "Un proton", "Un électron"], correct: 0 },
+            { q: "Les électrons sont :", a: ["Chargés négativement", "Chargés positivement", "Neutres", "Dans le noyau"], correct: 0 },
+            { q: "NH₃ est la formule de :", a: ["L'ammoniac", "L'eau", "Le méthane", "Le dioxygène"], correct: 0 }
+        ];
+
+        let quizQuestions = [];
+        let currentQuizIndex = 0;
+        let quizScore = 0;
+
+        function startQuiz() {
+            quizQuestions = [];
+            while (quizQuestions.length < 5) {
+                const q = quizBank[Math.floor(Math.random() * quizBank.length)];
+                if (!quizQuestions.includes(q)) quizQuestions.push(q);
+            }
+            currentQuizIndex = 0;
+            quizScore = 0;
+            document.getElementById('quiz-next-btn').style.display = 'none';
+            document.getElementById('quiz-restart-btn').style.display = 'none';
+            document.getElementById('quiz-final-score').innerHTML = '';
+            showQuizQuestion();
+        }
+
+        function showQuizQuestion() {
+            if (currentQuizIndex >= quizQuestions.length) {
+                showFinalScore();
+                return;
+            }
+            
+            const q = quizQuestions[currentQuizIndex];
+            document.getElementById('quiz-current').textContent = currentQuizIndex + 1;
+            document.getElementById('quiz-question').textContent = q.q;
+            document.getElementById('quiz-feedback').innerHTML = '';
+            document.getElementById('quiz-next-btn').style.display = 'none';
+            
+            const container = document.getElementById('quiz-options');
+            container.innerHTML = '';
+            
+            q.a.forEach((ans, i) => {
+                const btn = document.createElement('button');
+                btn.className = 'quiz-option';
+                btn.textContent = ans;
+                btn.onclick = () => answerQuiz(i, q.correct);
+                container.appendChild(btn);
+            });
+        }
+
+        function answerQuiz(selected, correct) {
+            const btns = document.querySelectorAll('#quiz-options .quiz-option');
+            btns.forEach((btn, i) => {
+                btn.disabled = true;
+                if (i === correct) btn.classList.add('correct');
+                else if (i === selected) btn.classList.add('incorrect');
+            });
+            
+            const feedback = document.getElementById('quiz-feedback');
+            if (selected === correct) {
+                quizScore++;
+                feedback.innerHTML = '<div class="feedback success">✅ Bonne réponse !</div>';
+            } else {
+                feedback.innerHTML = '<div class="feedback error">❌ Mauvaise réponse</div>';
+            }
+            
+            document.getElementById('quiz-next-btn').style.display = 'inline-block';
+        }
+
+        function nextQuizQuestion() {
+            currentQuizIndex++;
+            showQuizQuestion();
+        }
+
+        function showFinalScore() {
+            document.getElementById('quiz-question').textContent = 'Quiz terminé !';
+            document.getElementById('quiz-options').innerHTML = '';
+            document.getElementById('quiz-feedback').innerHTML = '';
+            document.getElementById('quiz-next-btn').style.display = 'none';
+            document.getElementById('quiz-restart-btn').style.display = 'inline-block';
+            
+            let message = '';
+            if (quizScore === 5) message = '🏆 Parfait ! Tu maîtrises le chapitre !';
+            else if (quizScore >= 3) message = '👍 Bien joué ! Continue comme ça !';
+            else message = '💪 Continue à t\'entraîner !';
+            
+            document.getElementById('quiz-final-score').innerHTML = `
+                <div class="score-display" style="font-size: 2rem;">
+                    Score : ${quizScore} / 5
+                </div>
+                <p style="text-align: center; font-size: 1.3rem; margin-top: 1rem;">${message}</p>
+            `;
+        }
+
+        // Initialisation
+        window.onload = function() {
+            newMolecule();
+            newFormulaQuestion();
+            newElement();
+            resetGame4();
+            startQuiz();
+        };
+    </script>
+</body>
+</html>
