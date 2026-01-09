@@ -2,7 +2,9 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Physique-Chimie Facile</title>
     <style>
         * {
@@ -16,6 +18,9 @@
             background: #0a0a0a;
             min-height: 100vh;
             color: #e0e0e0;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            touch-action: manipulation;
         }
 
         /* Header */
@@ -103,6 +108,9 @@
             border: none;
             cursor: pointer;
             font-size: 1rem;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+            -webkit-user-select: none;
         }
 
         .btn:hover {
@@ -203,6 +211,9 @@
             font-weight: 500;
             transition: all 0.2s;
             color: #888;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+            -webkit-user-select: none;
         }
 
         .tab-btn:hover {
@@ -389,6 +400,10 @@
             font-weight: 700;
             transition: all 0.2s;
             border: none;
+            position: relative;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+            -webkit-user-select: none;
         }
 
         .atom-item:hover {
@@ -401,8 +416,11 @@
 
         .atom-item.selected {
             background: #000000;
-            color: #ffffff;
-            border: 1px solid #ffffff;
+            color: #00ffff;
+            border: 1px solid #00ffff;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.6),
+                        0 0 40px rgba(0, 255, 255, 0.3);
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
         }
 
         .molecule-builder {
@@ -432,10 +450,13 @@
         }
 
         .drop-zone.filled {
-            background: #ffffff;
-            color: #000000;
-            border-style: solid;
-            border-color: #ffffff;
+            background: #000000;
+            color: #00ff88;
+            border: 1px solid #00ff88;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.6),
+                        0 0 40px rgba(0, 255, 136, 0.3),
+                        inset 0 0 20px rgba(0, 255, 136, 0.2);
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.8);
         }
 
         .game-controls {
@@ -458,6 +479,9 @@
             transition: all 0.2s;
             text-align: left;
             color: #c0c0c0;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+            -webkit-user-select: none;
         }
 
         .quiz-option:hover {
@@ -466,23 +490,28 @@
         }
 
         .quiz-option.correct {
-            background: #ffffff;
-            color: #000000;
-            border-color: #ffffff;
+            background: #000000;
+            color: #00ff88;
+            border: 1px solid #00ff88;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
+            text-shadow: 0 0 5px rgba(0, 255, 136, 0.6);
         }
 
         .quiz-option.incorrect {
             background: #000000;
-            color: #666;
-            border-color: #666;
+            color: #ff3366;
+            border: 1px solid #ff3366;
+            box-shadow: 0 0 20px rgba(255, 51, 102, 0.4);
         }
 
         .score-display {
             text-align: center;
             font-size: 1.5rem;
             font-weight: 700;
-            color: #ffffff;
+            color: #00ffff;
             margin: 1rem 0;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.8),
+                         0 0 20px rgba(0, 255, 255, 0.4);
         }
 
         .feedback {
@@ -494,22 +523,246 @@
         }
 
         .feedback.success {
-            background: #ffffff;
-            color: #000000;
-            border: 1px solid #ffffff;
+            background: #000000;
+            color: #00ff88;
+            border: 1px solid #00ff88;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
+            text-shadow: 0 0 5px rgba(0, 255, 136, 0.6);
         }
 
         .feedback.error {
             background: #000000;
-            color: #888;
-            border: 1px solid #333;
+            color: #ff3366;
+            border: 1px solid #ff3366;
+            box-shadow: 0 0 20px rgba(255, 51, 102, 0.4);
+            text-shadow: 0 0 5px rgba(255, 51, 102, 0.6);
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2rem; }
-            .nav-links { gap: 1rem; }
-            .chapter-nav { flex-direction: column; }
+            .hero h1 { 
+                font-size: 2rem; 
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .nav-links { 
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .chapter-nav { 
+                flex-direction: column;
+            }
+            
+            .container {
+                padding: 0 1rem;
+            }
+            
+            nav {
+                padding: 0 1rem;
+            }
+            
+            .logo {
+                font-size: 1.2rem;
+            }
+            
+            .chapter-page,
+            .hero,
+            .game-container,
+            .course-section {
+                padding: 1.5rem;
+            }
+            
+            .game-area {
+                padding: 1rem;
+            }
+            
+            .atoms-palette {
+                gap: 0.5rem;
+            }
+            
+            .atom-item {
+                padding: 0.8rem 1.2rem;
+                font-size: 0.9rem;
+            }
+            
+            .drop-zone {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+            
+            .molecule-builder {
+                padding: 1rem;
+                gap: 0.3rem;
+            }
+            
+            .match-game {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .game-controls {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .quiz-option {
+                font-size: 0.9rem;
+                padding: 0.8rem;
+            }
+            
+            .score-display {
+                font-size: 1.2rem;
+            }
+            
+            .game-container h3 {
+                font-size: 1.1rem;
+            }
+            
+            .course-section h3 {
+                font-size: 1.3rem;
+            }
+            
+            .course-section h4 {
+                font-size: 1.1rem;
+            }
+            
+            .course-section p,
+            .course-section li {
+                font-size: 0.95rem;
+            }
+            
+            .atom {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .nucleus {
+                width: 30px;
+                height: 30px;
+                font-size: 0.7rem;
+            }
+            
+            .orbit-1 { 
+                width: 60px; 
+                height: 60px; 
+            }
+            
+            .orbit-2 { 
+                width: 105px; 
+                height: 105px; 
+            }
+            
+            .electron {
+                width: 10px;
+                height: 10px;
+            }
+            
+            .chapters-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .chapter-card {
+                padding: 1.5rem;
+            }
+        }
+
+        /* iPhone specific optimizations */
+        @media (max-width: 430px) {
+            body {
+                font-size: 14px;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hero {
+                padding: 2rem 1rem;
+            }
+            
+            .tab-btn {
+                padding: 0.7rem 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .game-area {
+                min-height: 250px;
+            }
+            
+            .drop-zone {
+                width: 50px;
+                height: 50px;
+                font-size: 1.3rem;
+            }
+            
+            .atom-item {
+                padding: 0.6rem 1rem;
+                font-size: 0.85rem;
+            }
+            
+            #element-display {
+                font-size: 1.5rem !important;
+            }
+            
+            #target-molecule {
+                font-size: 1.2rem !important;
+            }
+            
+            #molecule-name {
+                font-size: 1.1rem !important;
+            }
+        }
+
+        /* Landscape mobile optimization */
+        @media (max-width: 900px) and (orientation: landscape) {
+            .hero {
+                padding: 2rem 1.5rem;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .game-area {
+                min-height: 200px;
+            }
+            
+            .atom-diagram {
+                margin: 1rem 0;
+            }
+        }
+
+        /* Touch optimization */
+        @media (hover: none) and (pointer: coarse) {
+            .btn,
+            .atom-item,
+            .quiz-option,
+            .match-item,
+            .tab-btn {
+                min-height: 44px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .quiz-option {
+                padding: 1rem;
+            }
+            
+            .nav-links a {
+                padding: 0.5rem;
+            }
         }
 
         .hidden {
@@ -544,6 +797,9 @@
             transition: all 0.2s;
             font-weight: 600;
             border: 1px solid #ffffff;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+            -webkit-user-select: none;
         }
 
         .match-item:hover {
@@ -556,10 +812,12 @@
         }
 
         .match-item.matched {
-            background: #666;
-            color: #ffffff;
+            background: #000000;
+            color: #00ff88;
             cursor: default;
-            border-color: #666;
+            border: 1px solid #00ff88;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+            text-shadow: 0 0 5px rgba(0, 255, 136, 0.7);
         }
     </style>
 </head>
@@ -651,13 +909,13 @@
                         <h4>⚡ Les composants d'un atome</h4>
                         <p><strong>Le noyau</strong> est situé au centre de l'atome. Il contient :</p>
                         <ul style="margin-left: 2rem; line-height: 1.8;">
-                            <li><strong>Les protons</strong> : particules chargées positivement (+)</li>
-                            <li><strong>Les neutrons</strong> : particules neutres (pas de charge)</li>
+                            <li><strong style="color: #ff3366; text-shadow: 0 0 8px rgba(255, 51, 102, 0.6);">Les protons</strong> : particules chargées positivement (+)</li>
+                            <li><strong style="color: #888888;">Les neutrons</strong> : particules neutres (pas de charge)</li>
                         </ul>
                         
                         <p style="margin-top: 1rem;"><strong>Les électrons</strong> gravitent autour du noyau :</p>
                         <ul style="margin-left: 2rem; line-height: 1.8;">
-                            <li>Particules chargées négativement (-)</li>
+                            <li><strong style="color: #00ffff; text-shadow: 0 0 8px rgba(0, 255, 255, 0.6);">Particules chargées négativement (-)</strong></li>
                             <li>Beaucoup plus légers que les protons et neutrons</li>
                             <li>Un atome neutre a autant de protons que d'électrons</li>
                         </ul>
@@ -680,11 +938,11 @@
                         <div class="example">
                             <h4>💡 Exemples de molécules courantes</h4>
                             <ul style="margin-left: 2rem; line-height: 2;">
-                                <li><strong>H₂O (eau)</strong> : 2 atomes d'hydrogène + 1 atome d'oxygène</li>
-                                <li><strong>CO₂ (dioxyde de carbone)</strong> : 1 atome de carbone + 2 atomes d'oxygène</li>
-                                <li><strong>CH₄ (méthane)</strong> : 1 atome de carbone + 4 atomes d'hydrogène</li>
-                                <li><strong>O₂ (dioxygène)</strong> : 2 atomes d'oxygène</li>
-                                <li><strong>NH₃ (ammoniac)</strong> : 1 atome d'azote + 3 atomes d'hydrogène</li>
+                                <li><strong style="color: #00ffff; text-shadow: 0 0 10px rgba(0, 255, 255, 0.6);">H₂O (eau)</strong> : 2 atomes d'hydrogène + 1 atome d'oxygène</li>
+                                <li><strong style="color: #ff6699; text-shadow: 0 0 10px rgba(255, 102, 153, 0.6);">CO₂ (dioxyde de carbone)</strong> : 1 atome de carbone + 2 atomes d'oxygène</li>
+                                <li><strong style="color: #ffaa00; text-shadow: 0 0 10px rgba(255, 170, 0, 0.6);">CH₄ (méthane)</strong> : 1 atome de carbone + 4 atomes d'hydrogène</li>
+                                <li><strong style="color: #ff3366; text-shadow: 0 0 10px rgba(255, 51, 102, 0.6);">O₂ (dioxygène)</strong> : 2 atomes d'oxygène</li>
+                                <li><strong style="color: #9966ff; text-shadow: 0 0 10px rgba(153, 102, 255, 0.6);">NH₃ (ammoniac)</strong> : 1 atome d'azote + 3 atomes d'hydrogène</li>
                             </ul>
                         </div>
                     </div>
@@ -697,7 +955,7 @@
                         <h3>🧪 Jeu 1 : Construis la molécule</h3>
                         <div class="game-area">
                             <p style="text-align: center; font-size: 1.2rem; margin-bottom: 1rem;">
-                                Construis la molécule : <strong id="target-molecule">H₂O</strong>
+                                Construis la molécule : <strong id="target-molecule" style="color: #00ffff; text-shadow: 0 0 10px rgba(0, 255, 255, 0.8); font-size: 1.4rem;">H₂O</strong>
                             </p>
                             <div class="atoms-palette" id="atoms-palette">
                                 <!-- Atomes générés dynamiquement -->
@@ -719,7 +977,7 @@
                         <h3>📝 Jeu 2 : Quelle est la formule ?</h3>
                         <div class="game-area">
                             <p style="text-align: center; font-size: 1.2rem; margin-bottom: 1rem;">
-                                Quelle est la formule de : <strong id="molecule-name">Eau</strong> ?
+                                Quelle est la formule de : <strong id="molecule-name" style="color: #ff6699; text-shadow: 0 0 10px rgba(255, 102, 153, 0.8); font-size: 1.3rem;">Eau</strong> ?
                             </p>
                             <div id="formula-options"></div>
                             <div id="game2-feedback"></div>
@@ -735,7 +993,7 @@
                         <div class="game-area">
                             <div class="score-display">Score : <span id="game3-score">0</span> / <span id="game3-total">0</span></div>
                             <p style="text-align: center; font-size: 1.5rem; margin: 2rem 0;">
-                                <strong id="element-display">O</strong>
+                                <strong id="element-display" style="color: #ffaa00; text-shadow: 0 0 15px rgba(255, 170, 0, 0.9); font-size: 2rem;">O</strong>
                             </p>
                             <div class="game-controls">
                                 <button class="btn" onclick="answerAtomOrMolecule('atome')">Atome</button>
