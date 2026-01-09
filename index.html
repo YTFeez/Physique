@@ -1076,14 +1076,7 @@
 
         .speed-item:hover {
             transform: scale(1.05);
-        }
-
-        .speed-item.molecule {
-            border-color: #00ffff;
-        }
-
-        .speed-item.atom {
-            border-color: #ff3366;
+            border-color: #666;
         }
     </style>
 </head>
@@ -1401,9 +1394,9 @@
 
                     <!-- Jeu 12: Rapidité -->
                     <div class="game-container">
-                        <h3>⚡ Jeu 12 : Rapidité - Clique sur les molécules !</h3>
+                        <h3>⚡ Jeu 12 : Rapidité - Trouve la molécule !</h3>
                         <div class="game-area">
-                            <p style="text-align: center; margin-bottom: 1rem;">Clique uniquement sur les <strong style="color: #00ffff; text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);">molécules</strong> (pas les atomes) !</p>
+                            <p style="text-align: center; margin-bottom: 1rem;">Clique uniquement sur la <strong style="color: #00ffff; text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);">MOLÉCULE</strong> parmi tous les atomes !</p>
                             <div class="score-display">Temps restant : <span id="speed-time">30</span>s | Score : <span id="speed-score">0</span></div>
                             <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 2rem 0; min-height: 300px;" id="speed-grid"></div>
                             <div class="game-controls">
@@ -2325,21 +2318,28 @@
             const grid = document.getElementById('speed-grid');
             grid.innerHTML = '';
             
-            const allItems = [...Object.keys(molecules), 'H', 'C', 'O', 'N'];
-            const selected = [];
+            const atoms = ['H', 'C', 'O', 'N'];
+            const formulas = Object.keys(molecules);
             
-            for (let i = 0; i < 9; i++) {
-                const item = allItems[Math.floor(Math.random() * allItems.length)];
-                selected.push(item);
+            // Choisir UNE molécule aléatoire
+            const molecule = formulas[Math.floor(Math.random() * formulas.length)];
+            
+            // Remplir le reste avec des atomes
+            const items = [molecule];
+            for (let i = 0; i < 8; i++) {
+                const atom = atoms[Math.floor(Math.random() * atoms.length)];
+                items.push(atom);
             }
             
-            selected.forEach(item => {
+            // Mélanger
+            items.sort(() => Math.random() - 0.5);
+            
+            items.forEach(item => {
                 const div = document.createElement('div');
                 div.className = 'speed-item';
                 div.textContent = item;
                 
                 const isMolecule = molecules[item] !== undefined;
-                div.classList.add(isMolecule ? 'molecule' : 'atom');
                 
                 div.onclick = () => clickSpeedItem(isMolecule);
                 grid.appendChild(div);
@@ -2355,13 +2355,14 @@
                 document.getElementById('speed-feedback').innerHTML = '<div class="feedback error">❌ C\'est un atome, pas une molécule !</div>';
                 setTimeout(() => {
                     document.getElementById('speed-feedback').innerHTML = '';
-                }, 1000);
+                }, 800);
             }
         }
 
         function endSpeedGame() {
             clearInterval(speedTimer);
-            document.getElementById('speed-grid').innerHTML = `
+            const grid = document.getElementById('speed-grid');
+            grid.innerHTML = `
                 <div style="grid-column: 1/-1; text-align: center; padding: 2rem;">
                     <h3 style="color: #00ffff; text-shadow: 0 0 10px rgba(0, 255, 255, 0.8); font-size: 2rem;">
                         Temps écoulé !
