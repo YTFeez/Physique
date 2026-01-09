@@ -345,14 +345,30 @@
             height: 12px;
             background: #00ffff;
             border-radius: 50%;
-            animation: orbit 3s linear infinite;
             box-shadow: 0 0 15px rgba(0, 255, 255, 0.9),
                         0 0 30px rgba(0, 255, 255, 0.5);
+            top: 50%;
+            left: 50%;
+            margin-left: -6px;
+            margin-top: -6px;
         }
 
         @keyframes orbit {
-            from { transform: rotate(0deg) translateX(40px) rotate(0deg); }
-            to { transform: rotate(360deg) translateX(40px) rotate(-360deg); }
+            from { 
+                transform: rotate(0deg) translateX(40px); 
+            }
+            to { 
+                transform: rotate(360deg) translateX(40px); 
+            }
+        }
+
+        @keyframes orbit2 {
+            from { 
+                transform: rotate(0deg) translateX(70px); 
+            }
+            to { 
+                transform: rotate(360deg) translateX(70px); 
+            }
         }
 
         /* Jeux */
@@ -392,11 +408,10 @@
         }
 
         .atom-item {
-            padding: 1rem 1.5rem;
-            background: #ffffff;
-            color: #000000;
-            border-radius: 2px;
-            cursor: pointer;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            cursor: grab;
             font-weight: 700;
             transition: all 0.2s;
             border: none;
@@ -404,23 +419,51 @@
             -webkit-tap-highlight-color: transparent;
             user-select: none;
             -webkit-user-select: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #ffffff;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .atom-item[data-atom="H"] {
+            background: #00ffff;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.6);
+        }
+
+        .atom-item[data-atom="C"] {
+            background: #888888;
+            box-shadow: 0 0 15px rgba(136, 136, 136, 0.6);
+        }
+
+        .atom-item[data-atom="O"] {
+            background: #ff3366;
+            box-shadow: 0 0 15px rgba(255, 51, 102, 0.6);
+        }
+
+        .atom-item[data-atom="N"] {
+            background: #9966ff;
+            box-shadow: 0 0 15px rgba(153, 102, 255, 0.6);
         }
 
         .atom-item:hover {
-            background: #f0f0f0;
+            transform: scale(1.1);
         }
 
         .atom-item:active {
-            transform: translateY(1px);
+            cursor: grabbing;
+            transform: scale(0.95);
         }
 
         .atom-item.selected {
-            background: #000000;
-            color: #00ffff;
-            border: 1px solid #00ffff;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.6),
-                        0 0 40px rgba(0, 255, 255, 0.3);
-            text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+            transform: scale(1.2);
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.8);
+        }
+
+        .atom-item.dragging {
+            opacity: 0.5;
+            cursor: grabbing;
         }
 
         .molecule-builder {
@@ -438,8 +481,8 @@
         .drop-zone {
             width: 80px;
             height: 80px;
-            border: 1px dashed #666;
-            border-radius: 2px;
+            border: 2px dashed #666;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -447,16 +490,50 @@
             font-weight: bold;
             color: #666;
             transition: all 0.2s;
+            background: #0a0a0a;
+        }
+
+        .drop-zone.drag-over {
+            border-color: #00ffff;
+            background: #111;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
         }
 
         .drop-zone.filled {
-            background: #000000;
-            color: #00ff88;
-            border: 1px solid #00ff88;
-            box-shadow: 0 0 20px rgba(0, 255, 136, 0.6),
-                        0 0 40px rgba(0, 255, 136, 0.3),
-                        inset 0 0 20px rgba(0, 255, 136, 0.2);
-            text-shadow: 0 0 10px rgba(0, 255, 136, 0.8);
+            border: none;
+        }
+
+        .drop-zone.filled .atom-in-zone {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ffffff;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .drop-zone.filled .atom-in-zone[data-atom="H"] {
+            background: #00ffff;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
+        }
+
+        .drop-zone.filled .atom-in-zone[data-atom="C"] {
+            background: #888888;
+            box-shadow: 0 0 20px rgba(136, 136, 136, 0.6);
+        }
+
+        .drop-zone.filled .atom-in-zone[data-atom="O"] {
+            background: #ff3366;
+            box-shadow: 0 0 20px rgba(255, 51, 102, 0.6);
+        }
+
+        .drop-zone.filled .atom-in-zone[data-atom="N"] {
+            background: #9966ff;
+            box-shadow: 0 0 20px rgba(153, 102, 255, 0.6);
         }
 
         .game-controls {
@@ -585,14 +662,21 @@
             }
             
             .atom-item {
-                padding: 0.8rem 1.2rem;
-                font-size: 0.9rem;
+                width: 50px;
+                height: 50px;
+                font-size: 1rem;
             }
             
             .drop-zone {
                 width: 60px;
                 height: 60px;
                 font-size: 1.5rem;
+            }
+
+            .drop-zone.filled .atom-in-zone {
+                width: 55px;
+                height: 55px;
+                font-size: 1.2rem;
             }
             
             .molecule-builder {
@@ -653,18 +737,38 @@
             }
             
             .orbit-1 { 
-                width: 60px; 
-                height: 60px; 
+                width: 80px; 
+                height: 80px; 
             }
             
             .orbit-2 { 
-                width: 105px; 
-                height: 105px; 
+                width: 140px; 
+                height: 140px; 
             }
             
             .electron {
                 width: 10px;
                 height: 10px;
+                margin-left: -5px;
+                margin-top: -5px;
+            }
+            
+            @keyframes orbit {
+                from { 
+                    transform: rotate(0deg) translateX(30px); 
+                }
+                to { 
+                    transform: rotate(360deg) translateX(30px); 
+                }
+            }
+
+            @keyframes orbit2 {
+                from { 
+                    transform: rotate(0deg) translateX(52.5px); 
+                }
+                to { 
+                    transform: rotate(360deg) translateX(52.5px); 
+                }
             }
             
             .chapters-grid {
@@ -705,10 +809,17 @@
                 height: 50px;
                 font-size: 1.3rem;
             }
+
+            .drop-zone.filled .atom-in-zone {
+                width: 45px;
+                height: 45px;
+                font-size: 1rem;
+            }
             
             .atom-item {
-                padding: 0.6rem 1rem;
-                font-size: 0.85rem;
+                width: 45px;
+                height: 45px;
+                font-size: 0.9rem;
             }
             
             #element-display {
@@ -898,10 +1009,10 @@
                             <div class="atom">
                                 <div class="nucleus">Noyau</div>
                                 <div class="electron-orbit orbit-1">
-                                    <div class="electron" style="top: 0; left: 50%; transform: translateX(-50%);"></div>
+                                    <div class="electron" style="animation: orbit 3s linear infinite;"></div>
                                 </div>
                                 <div class="electron-orbit orbit-2">
-                                    <div class="electron" style="top: 0; left: 50%; transform: translateX(-50%); animation-delay: -1s;"></div>
+                                    <div class="electron" style="animation: orbit2 3s linear infinite; animation-delay: -1.5s;"></div>
                                 </div>
                             </div>
                         </div>
@@ -1073,9 +1184,10 @@
             'NH₃': { name: 'Ammoniac', atoms: ['N', 'H', 'H', 'H'] }
         };
 
-        // JEU 1: Construis la molécule
+        // JEU 1: Construis la molécule avec drag and drop
         let currentMolecule = 'H₂O';
         let userBuiltMolecule = [];
+        let draggedAtom = null;
 
         function newMolecule() {
             const formulas = Object.keys(molecules);
@@ -1086,6 +1198,7 @@
 
         function resetGame1() {
             userBuiltMolecule = [];
+            draggedAtom = null;
             const builder = document.getElementById('molecule-builder');
             const palette = document.getElementById('atoms-palette');
             const feedback = document.getElementById('game1-feedback');
@@ -1100,46 +1213,89 @@
                 const zone = document.createElement('div');
                 zone.className = 'drop-zone';
                 zone.dataset.index = i;
-                zone.textContent = '?';
+                
+                // Drag and drop events
+                zone.addEventListener('dragover', handleDragOver);
+                zone.addEventListener('dragleave', handleDragLeave);
+                zone.addEventListener('drop', handleDrop);
+                
+                // Touch events for mobile
                 zone.addEventListener('click', function() {
-                    if (selectedAtom) {
-                        placeAtom(i, selectedAtom);
-                        selectedAtom = null;
+                    if (draggedAtom) {
+                        placeAtomInZone(i, draggedAtom);
+                        draggedAtom = null;
                         palette.querySelectorAll('.atom-item').forEach(a => a.classList.remove('selected'));
                     }
                 });
+                
                 builder.appendChild(zone);
             });
 
-            // Créer la palette d'atomes (tous les atomes possibles)
+            // Créer la palette d'atomes (ronds colorés)
             const allAtoms = ['H', 'C', 'O', 'N'];
             allAtoms.forEach(atom => {
                 const atomEl = document.createElement('div');
                 atomEl.className = 'atom-item';
+                atomEl.draggable = true;
                 atomEl.textContent = atom;
+                atomEl.dataset.atom = atom;
+                
+                // Drag events
+                atomEl.addEventListener('dragstart', handleDragStart);
+                atomEl.addEventListener('dragend', handleDragEnd);
+                
+                // Click for mobile
                 atomEl.addEventListener('click', function() {
-                    selectedAtom = atom;
+                    draggedAtom = atom;
                     palette.querySelectorAll('.atom-item').forEach(a => a.classList.remove('selected'));
                     atomEl.classList.add('selected');
                 });
+                
                 palette.appendChild(atomEl);
             });
         }
 
-        let selectedAtom = null;
+        function handleDragStart(e) {
+            draggedAtom = e.target.dataset.atom;
+            e.target.classList.add('dragging');
+            e.dataTransfer.effectAllowed = 'move';
+        }
 
-        function placeAtom(index, atom) {
+        function handleDragEnd(e) {
+            e.target.classList.remove('dragging');
+        }
+
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.currentTarget.classList.add('drag-over');
+            e.dataTransfer.dropEffect = 'move';
+        }
+
+        function handleDragLeave(e) {
+            e.currentTarget.classList.remove('drag-over');
+        }
+
+        function handleDrop(e) {
+            e.preventDefault();
+            e.currentTarget.classList.remove('drag-over');
+            const index = parseInt(e.currentTarget.dataset.index);
+            if (draggedAtom) {
+                placeAtomInZone(index, draggedAtom);
+            }
+        }
+
+        function placeAtomInZone(index, atom) {
             userBuiltMolecule[index] = atom;
             const zones = document.querySelectorAll('.drop-zone');
-            zones[index].textContent = atom;
             zones[index].classList.add('filled');
+            zones[index].innerHTML = `<div class="atom-in-zone" data-atom="${atom}">${atom}</div>`;
         }
 
         function checkMolecule() {
             const correct = molecules[currentMolecule].atoms;
             const feedback = document.getElementById('game1-feedback');
             
-            if (userBuiltMolecule.length !== correct.length) {
+            if (userBuiltMolecule.length !== correct.length || userBuiltMolecule.some(a => !a)) {
                 feedback.innerHTML = '<div class="feedback error">❌ La molécule n\'est pas complète !</div>';
                 return;
             }
