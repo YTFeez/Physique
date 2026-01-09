@@ -13,20 +13,19 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            background: #0a0a0a;
             min-height: 100vh;
             color: #e0e0e0;
         }
 
         /* Header */
         header {
-            background: #0f1419;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            background: #000000;
+            box-shadow: 0 1px 0 #333;
             padding: 1rem 0;
             position: sticky;
             top: 0;
             z-index: 100;
-            border-bottom: 2px solid #2a3f5f;
         }
 
         nav {
@@ -41,7 +40,8 @@
         .logo {
             font-size: 1.5rem;
             font-weight: bold;
-            color: #4a9eff;
+            color: #ffffff;
+            letter-spacing: -0.5px;
         }
 
         .nav-links {
@@ -52,13 +52,13 @@
 
         .nav-links a {
             text-decoration: none;
-            color: #c0c0c0;
+            color: #888;
             font-weight: 500;
-            transition: color 0.3s;
+            transition: color 0.2s;
         }
 
         .nav-links a:hover {
-            color: #4a9eff;
+            color: #ffffff;
         }
 
         /* Container */
@@ -70,115 +70,119 @@
 
         /* Page d'accueil */
         .hero {
-            background: linear-gradient(135deg, #1e2a3a 0%, #2a3f5f 100%);
-            border-radius: 20px;
+            background: #111;
+            border: 1px solid #222;
+            border-radius: 4px;
             padding: 4rem 2rem;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             margin-bottom: 2rem;
-            border: 1px solid #2a3f5f;
         }
 
         .hero h1 {
             font-size: 3rem;
-            color: #4a9eff;
+            color: #ffffff;
             margin-bottom: 1rem;
-            text-shadow: 0 0 20px rgba(74, 158, 255, 0.5);
+            font-weight: 700;
         }
 
         .hero p {
             font-size: 1.2rem;
-            color: #b0b0b0;
+            color: #888;
             margin-bottom: 2rem;
         }
 
         .btn {
             display: inline-block;
             padding: 1rem 2rem;
-            background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%);
-            color: #e0e0e0;
+            background: #ffffff;
+            color: #000000;
             text-decoration: none;
-            border-radius: 50px;
-            font-weight: bold;
-            transition: transform 0.3s, box-shadow 0.3s;
-            border: 1px solid #4a9eff;
+            border-radius: 2px;
+            font-weight: 600;
+            transition: all 0.2s;
+            border: none;
             cursor: pointer;
             font-size: 1rem;
         }
 
         .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(74, 158, 255, 0.4);
-            background: linear-gradient(135deg, #3a6ab8 0%, #2e4c92 100%);
+            background: #f0f0f0;
+        }
+
+        .btn:active {
+            transform: translateY(1px);
         }
 
         /* Cartes chapitres */
         .chapters-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
+            gap: 1.5rem;
             margin-top: 2rem;
         }
 
         .chapter-card {
-            background: linear-gradient(135deg, #1e2a3a 0%, #2a3f5f 100%);
-            border-radius: 15px;
+            background: #111;
+            border: 1px solid #222;
+            border-radius: 4px;
             padding: 2rem;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: border-color 0.2s;
             cursor: pointer;
-            border: 1px solid #2a3f5f;
         }
 
         .chapter-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(74, 158, 255, 0.3);
+            border-color: #444;
         }
 
         .chapter-card.available {
-            border-left: 5px solid #4a9eff;
+            border-left: 3px solid #ffffff;
         }
 
         .chapter-card.coming-soon {
-            opacity: 0.5;
+            opacity: 0.4;
             cursor: not-allowed;
         }
 
+        .chapter-card.coming-soon:hover {
+            border-color: #222;
+        }
+
         .chapter-card h3 {
-            color: #4a9eff;
+            color: #ffffff;
             margin-bottom: 0.5rem;
+            font-weight: 600;
         }
 
         .chapter-card p {
-            color: #b0b0b0;
+            color: #888;
+            line-height: 1.6;
         }
 
         .chapter-card .status {
             display: inline-block;
             padding: 0.3rem 0.8rem;
-            border-radius: 20px;
+            border-radius: 2px;
             font-size: 0.85rem;
-            font-weight: bold;
+            font-weight: 600;
             margin-top: 1rem;
         }
 
         .status.available {
-            background: #2a5298;
-            color: #e0e0e0;
+            background: #ffffff;
+            color: #000000;
         }
 
         .status.coming {
-            background: #3d3d3d;
-            color: #909090;
+            background: #222;
+            color: #666;
         }
 
         /* Page Chapitre */
         .chapter-page {
-            background: linear-gradient(135deg, #1e2a3a 0%, #2a3f5f 100%);
-            border-radius: 20px;
+            background: #111;
+            border: 1px solid #222;
+            border-radius: 4px;
             padding: 2rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            border: 1px solid #2a3f5f;
         }
 
         .chapter-nav {
@@ -186,23 +190,30 @@
             gap: 1rem;
             margin-bottom: 2rem;
             flex-wrap: wrap;
+            border-bottom: 1px solid #222;
+            padding-bottom: 1rem;
         }
 
         .tab-btn {
             padding: 0.8rem 1.5rem;
-            background: #1a1a2e;
-            border: 1px solid #2a3f5f;
-            border-radius: 10px;
+            background: transparent;
+            border: 1px solid #222;
+            border-radius: 2px;
             cursor: pointer;
             font-weight: 500;
-            transition: all 0.3s;
-            color: #b0b0b0;
+            transition: all 0.2s;
+            color: #888;
+        }
+
+        .tab-btn:hover {
+            border-color: #444;
+            color: #ffffff;
         }
 
         .tab-btn.active {
-            background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%);
-            color: #e0e0e0;
-            border-color: #4a9eff;
+            background: #ffffff;
+            color: #000000;
+            border-color: #ffffff;
         }
 
         .tab-content {
@@ -211,35 +222,37 @@
 
         .tab-content.active {
             display: block;
-            animation: fadeIn 0.5s;
+            animation: fadeIn 0.3s;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         /* Cours */
         .course-section {
             margin-bottom: 2rem;
             padding: 1.5rem;
-            background: #1a1a2e;
-            border-radius: 10px;
-            border: 1px solid #2a3f5f;
+            background: #0a0a0a;
+            border: 1px solid #222;
+            border-radius: 4px;
         }
 
         .course-section h3 {
-            color: #4a9eff;
+            color: #ffffff;
             margin-bottom: 1rem;
+            font-weight: 600;
         }
 
         .course-section h4 {
-            color: #6eb3ff;
+            color: #ffffff;
             margin: 1rem 0 0.5rem 0;
+            font-weight: 600;
         }
 
         .course-section p {
-            line-height: 1.6;
+            line-height: 1.8;
             margin-bottom: 0.8rem;
             color: #c0c0c0;
         }
@@ -249,18 +262,18 @@
         }
 
         .definition {
-            background: #1a2332;
+            background: #000000;
             padding: 1rem;
-            border-left: 4px solid #4a9eff;
-            border-radius: 5px;
+            border-left: 3px solid #ffffff;
+            border-radius: 2px;
             margin: 1rem 0;
         }
 
         .example {
-            background: #1a2d1a;
+            background: #000000;
             padding: 1rem;
-            border-left: 4px solid #4a9e4a;
-            border-radius: 5px;
+            border-left: 3px solid #666;
+            border-radius: 2px;
             margin: 1rem 0;
         }
 
@@ -284,14 +297,22 @@
             transform: translate(-50%, -50%);
             width: 40px;
             height: 40px;
-            background: radial-gradient(circle, #ff6b6b, #c92a2a);
+            background: #ff3366;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
+            color: #ffffff;
             font-weight: bold;
             font-size: 0.8rem;
+            box-shadow: 0 0 20px rgba(255, 51, 102, 0.8),
+                        0 0 40px rgba(255, 51, 102, 0.4);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(255, 51, 102, 0.8), 0 0 40px rgba(255, 51, 102, 0.4); }
+            50% { box-shadow: 0 0 30px rgba(255, 51, 102, 1), 0 0 60px rgba(255, 51, 102, 0.6); }
         }
 
         .electron-orbit {
@@ -299,8 +320,9 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            border: 2px dashed #4a9eff;
+            border: 1px dashed #00ffff;
             border-radius: 50%;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
         }
 
         .orbit-1 { width: 80px; height: 80px; }
@@ -310,10 +332,11 @@
             position: absolute;
             width: 12px;
             height: 12px;
-            background: #4a9eff;
+            background: #00ffff;
             border-radius: 50%;
             animation: orbit 3s linear infinite;
-            box-shadow: 0 0 10px rgba(74, 158, 255, 0.8);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.9),
+                        0 0 30px rgba(0, 255, 255, 0.5);
         }
 
         @keyframes orbit {
@@ -323,25 +346,30 @@
 
         /* Jeux */
         .game-container {
-            background: #1a1a2e;
-            border-radius: 15px;
+            background: #0a0a0a;
+            border: 1px solid #222;
+            border-radius: 4px;
             padding: 2rem;
             margin-bottom: 2rem;
-            border: 1px solid #2a3f5f;
         }
 
         .game-container h3 {
-            color: #4a9eff;
+            color: #ffffff;
             margin-bottom: 1rem;
             text-align: center;
+            font-weight: 600;
         }
 
         .game-area {
-            background: #0f1419;
-            border-radius: 10px;
+            background: #000000;
+            border: 1px solid #222;
+            border-radius: 4px;
             padding: 2rem;
             min-height: 300px;
-            border: 1px solid #2a3f5f;
+        }
+
+        .game-area p {
+            color: #c0c0c0;
         }
 
         .atoms-palette {
@@ -354,26 +382,27 @@
 
         .atom-item {
             padding: 1rem 1.5rem;
-            background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%);
-            color: #e0e0e0;
-            border-radius: 10px;
-            cursor: grab;
-            font-weight: bold;
-            transition: transform 0.2s;
-            border: 1px solid #4a9eff;
+            background: #ffffff;
+            color: #000000;
+            border-radius: 2px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.2s;
+            border: none;
         }
 
         .atom-item:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 15px rgba(74, 158, 255, 0.5);
+            background: #f0f0f0;
         }
 
         .atom-item:active {
-            cursor: grabbing;
+            transform: translateY(1px);
         }
 
         .atom-item.selected {
-            box-shadow: 0 0 20px rgba(74, 158, 255, 0.8);
+            background: #000000;
+            color: #ffffff;
+            border: 1px solid #ffffff;
         }
 
         .molecule-builder {
@@ -383,30 +412,30 @@
             align-items: center;
             min-height: 100px;
             padding: 2rem;
-            background: #1a1a2e;
-            border-radius: 10px;
-            border: 3px dashed #2a3f5f;
+            background: #0a0a0a;
+            border-radius: 4px;
+            border: 1px dashed #333;
         }
 
         .drop-zone {
             width: 80px;
             height: 80px;
-            border: 3px dashed #4a9eff;
-            border-radius: 10px;
+            border: 1px dashed #666;
+            border-radius: 2px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 2rem;
             font-weight: bold;
-            color: #4a9eff;
-            transition: all 0.3s;
+            color: #666;
+            transition: all 0.2s;
         }
 
         .drop-zone.filled {
-            background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%);
-            color: #e0e0e0;
+            background: #ffffff;
+            color: #000000;
             border-style: solid;
-            box-shadow: 0 0 15px rgba(74, 158, 255, 0.5);
+            border-color: #ffffff;
         }
 
         .game-controls {
@@ -414,6 +443,7 @@
             gap: 1rem;
             justify-content: center;
             margin-top: 1rem;
+            flex-wrap: wrap;
         }
 
         .quiz-option {
@@ -421,58 +451,58 @@
             width: 100%;
             padding: 1rem;
             margin: 0.5rem 0;
-            background: #1a1a2e;
-            border: 2px solid #2a3f5f;
-            border-radius: 10px;
+            background: #0a0a0a;
+            border: 1px solid #333;
+            border-radius: 2px;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.2s;
             text-align: left;
             color: #c0c0c0;
         }
 
         .quiz-option:hover {
-            background: #2a3f5f;
-            border-color: #4a9eff;
+            border-color: #666;
+            background: #111;
         }
 
         .quiz-option.correct {
-            background: #1a3d1a;
-            color: #90ee90;
-            border-color: #4a9e4a;
+            background: #ffffff;
+            color: #000000;
+            border-color: #ffffff;
         }
 
         .quiz-option.incorrect {
-            background: #3d1a1a;
-            color: #ff9090;
-            border-color: #9e4a4a;
+            background: #000000;
+            color: #666;
+            border-color: #666;
         }
 
         .score-display {
             text-align: center;
             font-size: 1.5rem;
-            font-weight: bold;
-            color: #4a9eff;
+            font-weight: 700;
+            color: #ffffff;
             margin: 1rem 0;
         }
 
         .feedback {
             text-align: center;
             padding: 1rem;
-            border-radius: 10px;
+            border-radius: 2px;
             margin-top: 1rem;
-            font-weight: bold;
+            font-weight: 600;
         }
 
         .feedback.success {
-            background: #1a3d1a;
-            color: #90ee90;
-            border: 1px solid #4a9e4a;
+            background: #ffffff;
+            color: #000000;
+            border: 1px solid #ffffff;
         }
 
         .feedback.error {
-            background: #3d1a1a;
-            color: #ff9090;
-            border: 1px solid #9e4a4a;
+            background: #000000;
+            color: #888;
+            border: 1px solid #333;
         }
 
         /* Responsive */
@@ -506,29 +536,30 @@
 
         .match-item {
             padding: 1rem;
-            background: #2a5298;
-            color: #e0e0e0;
-            border-radius: 10px;
+            background: #ffffff;
+            color: #000000;
+            border-radius: 2px;
             cursor: pointer;
             text-align: center;
-            transition: all 0.3s;
-            border: 1px solid #4a9eff;
+            transition: all 0.2s;
+            font-weight: 600;
+            border: 1px solid #ffffff;
         }
 
         .match-item:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(74, 158, 255, 0.4);
+            background: #f0f0f0;
         }
 
         .match-item.selected {
-            background: #1e3c72;
-            box-shadow: 0 0 20px rgba(74, 158, 255, 0.6);
+            background: #000000;
+            color: #ffffff;
         }
 
         .match-item.matched {
-            background: #1a3d1a;
+            background: #666;
+            color: #ffffff;
             cursor: default;
-            border-color: #4a9e4a;
+            border-color: #666;
         }
     </style>
 </head>
@@ -555,7 +586,7 @@
 
         <!-- Page Chapitres -->
         <div id="chapters-page" class="page hidden">
-            <h2 style="color: #4a9eff; text-align: center; margin-bottom: 2rem;">📚 Les Chapitres</h2>
+            <h2 style="color: #ffffff; text-align: center; margin-bottom: 2rem; font-weight: 700;">Les Chapitres</h2>
             <div class="chapters-grid">
                 <div class="chapter-card available" onclick="showChapter(1)">
                     <h3>Chapitre 1</h3>
@@ -587,7 +618,7 @@
         <!-- Chapitre 1 -->
         <div id="chapter1-page" class="page hidden">
             <div class="chapter-page">
-                <h2 style="color: #4a9eff; margin-bottom: 1rem;">Chapitre 1 : Atomes et molécules</h2>
+                <h2 style="color: #ffffff; margin-bottom: 1rem; font-weight: 700;">Chapitre 1 : Atomes et molécules</h2>
                 
                 <div class="chapter-nav">
                     <button class="tab-btn active" onclick="showTab('cours')">📖 Cours</button>
