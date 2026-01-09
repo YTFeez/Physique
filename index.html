@@ -922,13 +922,168 @@
             color: #ffffff;
         }
 
-        .match-item.matched {
-            background: #000000;
-            color: #00ff88;
+        .memory-card {
+            aspect-ratio: 1;
+            cursor: pointer;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+        }
+
+        .memory-card.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .memory-card.matched {
             cursor: default;
-            border: 1px solid #00ff88;
-            box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
-            text-shadow: 0 0 5px rgba(0, 255, 136, 0.7);
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            border: 2px solid #333;
+        }
+
+        .card-back {
+            background: #111;
+            color: #666;
+            font-size: 2rem;
+        }
+
+        .card-front {
+            background: #000;
+            transform: rotateY(180deg);
+            border-color: #00ffff;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+            padding: 0.5rem;
+        }
+
+        .memory-card.matched .card-front {
+            border-color: #00ff88;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
+        }
+
+        .card-formula {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #00ffff;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+            margin-bottom: 0.5rem;
+        }
+
+        .card-molecule-visual {
+            display: flex;
+            gap: 0.2rem;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 0.3rem;
+        }
+
+        .card-atom {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.65rem;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .card-atom.H {
+            background: #00ffff;
+            box-shadow: 0 0 8px rgba(0, 255, 255, 0.6);
+        }
+
+        .card-atom.C {
+            background: #888888;
+            box-shadow: 0 0 8px rgba(136, 136, 136, 0.6);
+        }
+
+        .card-atom.O {
+            background: #ff3366;
+            box-shadow: 0 0 8px rgba(255, 51, 102, 0.6);
+        }
+
+        .card-atom.N {
+            background: #9966ff;
+            box-shadow: 0 0 8px rgba(153, 102, 255, 0.6);
+        }
+
+        .card-bond {
+            width: 10px;
+            height: 2px;
+            background: #666;
+        }
+
+        .order-molecule-item {
+            padding: 1.5rem;
+            background: #111;
+            border: 2px solid #333;
+            border-radius: 4px;
+            cursor: move;
+            transition: all 0.2s;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff;
+            min-width: 100px;
+            text-align: center;
+            position: relative;
+        }
+
+        .order-molecule-item:hover {
+            border-color: #00ffff;
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+        }
+
+        .order-molecule-item.dragging {
+            opacity: 0.5;
+        }
+
+        #order-target {
+            min-height: 100px;
+        }
+
+        #order-target.drag-over {
+            border-color: #00ffff;
+            background: #111;
+        }
+
+        .speed-item {
+            aspect-ratio: 1;
+            background: #111;
+            border: 2px solid #333;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            transition: all 0.1s;
+            color: #fff;
+        }
+
+        .speed-item:hover {
+            transform: scale(1.05);
+        }
+
+        .speed-item.molecule {
+            border-color: #00ffff;
+        }
+
+        .speed-item.atom {
+            border-color: #ff3366;
         }
     </style>
 </head>
@@ -1144,6 +1299,117 @@
                                 <button class="btn" id="quiz-restart-btn" onclick="startQuiz()" style="display: none;">Recommencer le quiz</button>
                             </div>
                             <div id="quiz-final-score"></div>
+                        </div>
+                    </div>
+
+                    <!-- Jeu 6: Compte les atomes -->
+                    <div class="game-container">
+                        <h3>🔢 Jeu 6 : Compte les atomes</h3>
+                        <div class="game-area">
+                            <p style="text-align: center; font-size: 1.2rem; margin-bottom: 1rem;">
+                                Combien d'atomes de <strong id="count-atom-type" style="color: #ff6699; text-shadow: 0 0 10px rgba(255, 102, 153, 0.8); font-size: 1.3rem;">H</strong> dans <strong id="count-molecule" style="color: #00ffff; text-shadow: 0 0 10px rgba(0, 255, 255, 0.8); font-size: 1.4rem;">H₂O</strong> ?
+                            </p>
+                            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin: 2rem 0;">
+                                <button class="quiz-option" onclick="answerCountAtoms(0)">0</button>
+                                <button class="quiz-option" onclick="answerCountAtoms(1)">1</button>
+                                <button class="quiz-option" onclick="answerCountAtoms(2)">2</button>
+                                <button class="quiz-option" onclick="answerCountAtoms(3)">3</button>
+                                <button class="quiz-option" onclick="answerCountAtoms(4)">4</button>
+                            </div>
+                            <div class="score-display">Score : <span id="count-score">0</span> / <span id="count-total">0</span></div>
+                            <div id="count-feedback"></div>
+                        </div>
+                    </div>
+
+                    <!-- Jeu 7: Vrai ou Faux -->
+                    <div class="game-container">
+                        <h3>✅ Jeu 7 : Vrai ou Faux</h3>
+                        <div class="game-area">
+                            <div class="score-display">Score : <span id="tf-score">0</span> / <span id="tf-total">0</span></div>
+                            <p style="font-size: 1.2rem; margin: 2rem 0; text-align: center; line-height: 1.8;" id="tf-statement"></p>
+                            <div class="game-controls">
+                                <button class="btn" onclick="answerTrueFalse(true)" style="background: #00ff88; color: #000;">✅ Vrai</button>
+                                <button class="btn" onclick="answerTrueFalse(false)" style="background: #ff3366; color: #fff;">❌ Faux</button>
+                            </div>
+                            <div id="tf-feedback"></div>
+                        </div>
+                    </div>
+
+                    <!-- Jeu 8: Complète la formule -->
+                    <div class="game-container">
+                        <h3>✍️ Jeu 8 : Complète la formule</h3>
+                        <div class="game-area">
+                            <p style="text-align: center; font-size: 1.2rem; margin-bottom: 1rem;">
+                                Complète la formule de l'<strong id="complete-name" style="color: #ffaa00; text-shadow: 0 0 10px rgba(255, 170, 0, 0.8);">eau</strong>
+                            </p>
+                            <div style="display: flex; gap: 0.5rem; justify-content: center; align-items: center; margin: 2rem 0; flex-wrap: wrap;">
+                                <span style="font-size: 2rem; color: #fff;" id="formula-part1">H</span>
+                                <input type="number" id="formula-input" min="0" max="9" style="width: 60px; height: 60px; font-size: 1.5rem; text-align: center; background: #111; border: 2px solid #666; color: #fff; border-radius: 4px;" placeholder="?">
+                                <span style="font-size: 2rem; color: #fff;" id="formula-part2">O</span>
+                            </div>
+                            <div class="game-controls">
+                                <button class="btn" onclick="checkCompleteFormula()">Vérifier</button>
+                                <button class="btn" onclick="newCompleteFormula()">Nouvelle question</button>
+                            </div>
+                            <div id="complete-feedback"></div>
+                        </div>
+                    </div>
+
+                    <!-- Jeu 9: Memory des molécules -->
+                    <div class="game-container">
+                        <h3>🧠 Jeu 9 : Memory des molécules</h3>
+                        <div class="game-area">
+                            <div class="score-display">Paires trouvées : <span id="memory-score">0</span> / 5</div>
+                            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin: 2rem 0;" id="memory-grid"></div>
+                            <div class="game-controls">
+                                <button class="btn" onclick="resetMemoryGame()">Recommencer</button>
+                            </div>
+                            <div id="memory-feedback"></div>
+                        </div>
+                    </div>
+
+                    <!-- Jeu 10: Ordre des molécules -->
+                    <div class="game-container">
+                        <h3>📊 Jeu 10 : Classe par nombre d'atomes</h3>
+                        <div class="game-area">
+                            <p style="text-align: center; margin-bottom: 1rem;">
+                                Glisse les molécules dans l'ordre <strong style="color: #00ffff;">croissant</strong> (du plus petit au plus grand nombre d'atomes)
+                            </p>
+                            <div style="display: flex; gap: 1rem; justify-content: center; margin: 2rem 0; flex-wrap: wrap;" id="order-source"></div>
+                            <div style="text-align: center; margin: 1rem 0; color: #888;">
+                                ⬇️ Dépose ici dans l'ordre ⬇️
+                            </div>
+                            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; min-height: 100px; padding: 1rem; background: #0a0a0a; border: 2px dashed #333; border-radius: 4px;" id="order-target"></div>
+                            <div id="order-feedback"></div>
+                            <div class="game-controls">
+                                <button class="btn" onclick="checkOrderGame()">Vérifier l'ordre</button>
+                                <button class="btn" onclick="resetOrderGame()">Recommencer</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Jeu 11: Trouve l'intrus -->
+                    <div class="game-container">
+                        <h3>🔍 Jeu 11 : Trouve l'intrus</h3>
+                        <div class="game-area">
+                            <p style="text-align: center; margin-bottom: 1rem;">Une de ces formules n'existe pas. Trouve l'intrus !</p>
+                            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin: 2rem 0;" id="intrus-options"></div>
+                            <div class="score-display">Score : <span id="intrus-score">0</span> / <span id="intrus-total">0</span></div>
+                            <div id="intrus-feedback"></div>
+                        </div>
+                    </div>
+
+                    <!-- Jeu 12: Rapidité -->
+                    <div class="game-container">
+                        <h3>⚡ Jeu 12 : Rapidité - Clique sur les molécules !</h3>
+                        <div class="game-area">
+                            <p style="text-align: center; margin-bottom: 1rem;">Clique uniquement sur les <strong style="color: #00ffff; text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);">molécules</strong> (pas les atomes) !</p>
+                            <div class="score-display">Temps restant : <span id="speed-time">30</span>s | Score : <span id="speed-score">0</span></div>
+                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 2rem 0; min-height: 300px;" id="speed-grid"></div>
+                            <div class="game-controls">
+                                <button class="btn" onclick="startSpeedGame()" id="speed-start-btn">Démarrer</button>
+                            </div>
+                            <div id="speed-feedback"></div>
                         </div>
                     </div>
                 </div>
@@ -1609,7 +1875,504 @@
             newElement();
             resetGame4();
             startQuiz();
+            newCountQuestion();
+            newTrueFalseQuestion();
+            newCompleteFormula();
+            resetMemoryGame();
+            resetOrderGame();
+            newIntrusQuestion();
         };
+
+        // JEU 6: Compte les atomes
+        let countScore = 0;
+        let countTotal = 0;
+        let currentCountQuestion = {};
+
+        function newCountQuestion() {
+            const formulas = Object.keys(molecules);
+            const formula = formulas[Math.floor(Math.random() * formulas.length)];
+            const atoms = molecules[formula].atoms;
+            const uniqueAtoms = [...new Set(atoms)];
+            const atomType = uniqueAtoms[Math.floor(Math.random() * uniqueAtoms.length)];
+            const count = atoms.filter(a => a === atomType).length;
+            
+            currentCountQuestion = { formula, atomType, count };
+            
+            document.getElementById('count-molecule').textContent = formula;
+            document.getElementById('count-atom-type').textContent = atomType;
+            document.getElementById('count-feedback').innerHTML = '';
+            
+            document.querySelectorAll('#count-feedback').forEach(el => el.innerHTML = '');
+        }
+
+        function answerCountAtoms(answer) {
+            countTotal++;
+            const feedback = document.getElementById('count-feedback');
+            
+            if (answer === currentCountQuestion.count) {
+                countScore++;
+                feedback.innerHTML = '<div class="feedback success">✅ Exact ! Bonne réponse !</div>';
+            } else {
+                feedback.innerHTML = `<div class="feedback error">❌ Non, il y a ${currentCountQuestion.count} atome(s) de ${currentCountQuestion.atomType}</div>`;
+            }
+            
+            document.getElementById('count-score').textContent = countScore;
+            document.getElementById('count-total').textContent = countTotal;
+            
+            setTimeout(newCountQuestion, 2000);
+        }
+
+        // JEU 7: Vrai ou Faux
+        let tfScore = 0;
+        let tfTotal = 0;
+        let currentTFQuestion = {};
+
+        const trueFalseStatements = [
+            { text: "Une molécule d'eau contient 2 atomes d'hydrogène", answer: true },
+            { text: "Les protons sont chargés négativement", answer: false },
+            { text: "Les électrons gravitent autour du noyau", answer: true },
+            { text: "Le dioxyde de carbone a la formule H₂O", answer: false },
+            { text: "Un atome neutre a autant de protons que d'électrons", answer: true },
+            { text: "Les neutrons sont chargés positivement", answer: false },
+            { text: "Le méthane contient du carbone", answer: true },
+            { text: "O₂ est composé d'un seul atome", answer: false },
+            { text: "Le noyau contient les protons et les neutrons", answer: true },
+            { text: "Une molécule ne peut contenir qu'un seul type d'atome", answer: false },
+            { text: "CH₄ contient 4 atomes d'hydrogène", answer: true },
+            { text: "Les électrons sont dans le noyau", answer: false }
+        ];
+
+        function newTrueFalseQuestion() {
+            currentTFQuestion = trueFalseStatements[Math.floor(Math.random() * trueFalseStatements.length)];
+            document.getElementById('tf-statement').textContent = currentTFQuestion.text;
+            document.getElementById('tf-feedback').innerHTML = '';
+        }
+
+        function answerTrueFalse(answer) {
+            tfTotal++;
+            const feedback = document.getElementById('tf-feedback');
+            
+            if (answer === currentTFQuestion.answer) {
+                tfScore++;
+                feedback.innerHTML = '<div class="feedback success">✅ Correct !</div>';
+            } else {
+                feedback.innerHTML = '<div class="feedback error">❌ Faux !</div>';
+            }
+            
+            document.getElementById('tf-score').textContent = tfScore;
+            document.getElementById('tf-total').textContent = tfTotal;
+            
+            setTimeout(newTrueFalseQuestion, 2000);
+        }
+
+        // JEU 8: Complète la formule
+        let currentCompleteQuestion = {};
+
+        const completeQuestions = [
+            { name: "eau", formula: "H₂O", parts: ["H", "O"], answer: 2 },
+            { name: "dioxyde de carbone", formula: "CO₂", parts: ["CO", ""], answer: 2 },
+            { name: "méthane", formula: "CH₄", parts: ["CH", ""], answer: 4 },
+            { name: "dioxygène", formula: "O₂", parts: ["O", ""], answer: 2 },
+            { name: "ammoniac", formula: "NH₃", parts: ["NH", ""], answer: 3 }
+        ];
+
+        function newCompleteFormula() {
+            currentCompleteQuestion = completeQuestions[Math.floor(Math.random() * completeQuestions.length)];
+            document.getElementById('complete-name').textContent = currentCompleteQuestion.name;
+            document.getElementById('formula-part1').textContent = currentCompleteQuestion.parts[0];
+            document.getElementById('formula-part2').textContent = currentCompleteQuestion.parts[1];
+            document.getElementById('formula-input').value = '';
+            document.getElementById('complete-feedback').innerHTML = '';
+        }
+
+        function checkCompleteFormula() {
+            const input = parseInt(document.getElementById('formula-input').value);
+            const feedback = document.getElementById('complete-feedback');
+            
+            if (input === currentCompleteQuestion.answer) {
+                feedback.innerHTML = `<div class="feedback success">✅ Bravo ! La formule est ${currentCompleteQuestion.formula}</div>`;
+            } else {
+                feedback.innerHTML = `<div class="feedback error">❌ Non, la bonne réponse est ${currentCompleteQuestion.answer}</div>`;
+            }
+        }
+
+        // JEU 9: Memory des molécules
+        let memoryCards = [];
+        let memoryFlipped = [];
+        let memoryMatched = 0;
+
+        function createMoleculeVisual(formula) {
+            const atoms = molecules[formula].atoms;
+            let html = '<div class="card-molecule-visual">';
+            
+            atoms.forEach((atom, i) => {
+                html += `<div class="card-atom ${atom}">${atom}</div>`;
+                if (i < atoms.length - 1) {
+                    html += '<div class="card-bond"></div>';
+                }
+            });
+            
+            html += '</div>';
+            return html;
+        }
+
+        function resetMemoryGame() {
+            memoryMatched = 0;
+            memoryFlipped = [];
+            document.getElementById('memory-score').textContent = '0';
+            document.getElementById('memory-feedback').innerHTML = '';
+            
+            const formulas = Object.keys(molecules);
+            const items = [];
+            
+            // Créer des paires (chaque formule apparaît 2 fois)
+            for (let i = 0; i < 5; i++) {
+                const formula = formulas[i];
+                items.push({ id: i * 2, formula, pair: i });
+                items.push({ id: i * 2 + 1, formula, pair: i });
+            }
+            
+            memoryCards = items.sort(() => Math.random() - 0.5);
+            
+            const grid = document.getElementById('memory-grid');
+            grid.innerHTML = '';
+            
+            memoryCards.forEach((card, i) => {
+                const cardEl = document.createElement('div');
+                cardEl.className = 'memory-card';
+                cardEl.dataset.index = i;
+                cardEl.innerHTML = `
+                    <div class="card-face card-back">?</div>
+                    <div class="card-face card-front">
+                        <div class="card-formula">${card.formula}</div>
+                        ${createMoleculeVisual(card.formula)}
+                    </div>
+                `;
+                cardEl.onclick = () => flipMemoryCard(i);
+                grid.appendChild(cardEl);
+            });
+        }
+
+        function flipMemoryCard(index) {
+            const card = document.querySelector(`.memory-card[data-index="${index}"]`);
+            if (card.classList.contains('flipped') || card.classList.contains('matched') || memoryFlipped.length >= 2) return;
+            
+            card.classList.add('flipped');
+            memoryFlipped.push(index);
+            
+            if (memoryFlipped.length === 2) {
+                setTimeout(checkMemoryMatch, 1000);
+            }
+        }
+
+        function checkMemoryMatch() {
+            const [i1, i2] = memoryFlipped;
+            const card1 = memoryCards[i1];
+            const card2 = memoryCards[i2];
+            
+            if (card1.pair === card2.pair) {
+                document.querySelectorAll('.memory-card').forEach((el, i) => {
+                    if (i === i1 || i === i2) el.classList.add('matched');
+                });
+                memoryMatched++;
+                document.getElementById('memory-score').textContent = memoryMatched;
+                
+                if (memoryMatched === 5) {
+                    document.getElementById('memory-feedback').innerHTML = '<div class="feedback success">🎉 Bravo ! Tu as trouvé toutes les paires !</div>';
+                }
+            } else {
+                document.querySelectorAll('.memory-card').forEach((el, i) => {
+                    if (i === i1 || i === i2) {
+                        setTimeout(() => el.classList.remove('flipped'), 100);
+                    }
+                });
+            }
+            
+            memoryFlipped = [];
+        }
+
+        // JEU 10: Ordre des molécules (drag and drop)
+        let orderMolecules = [];
+        let orderCorrectSequence = [];
+        let orderUserSequence = [];
+        let draggedOrderItem = null;
+
+        function resetOrderGame() {
+            orderUserSequence = [];
+            document.getElementById('order-feedback').innerHTML = '';
+            
+            const formulas = Object.keys(molecules);
+            const selected = [];
+            
+            // Sélectionner 5 molécules avec des nombres d'atomes différents
+            while (selected.length < 5) {
+                const formula = formulas[Math.floor(Math.random() * formulas.length)];
+                if (!selected.includes(formula)) {
+                    selected.push(formula);
+                }
+            }
+            
+            // Trier par nombre d'atomes (ordre croissant)
+            orderCorrectSequence = selected.sort((a, b) => 
+                molecules[a].atoms.length - molecules[b].atoms.length
+            );
+            
+            // Mélanger pour l'affichage
+            orderMolecules = [...selected].sort(() => Math.random() - 0.5);
+            
+            const sourceGrid = document.getElementById('order-source');
+            const targetGrid = document.getElementById('order-target');
+            sourceGrid.innerHTML = '';
+            targetGrid.innerHTML = '';
+            
+            orderMolecules.forEach((formula) => {
+                const item = document.createElement('div');
+                item.className = 'order-molecule-item';
+                item.draggable = true;
+                item.dataset.formula = formula;
+                item.textContent = formula;
+                
+                // Drag events
+                item.addEventListener('dragstart', handleOrderDragStart);
+                item.addEventListener('dragend', handleOrderDragEnd);
+                
+                // Touch/click for mobile
+                item.addEventListener('click', () => moveToTarget(formula));
+                
+                sourceGrid.appendChild(item);
+            });
+            
+            // Setup drop zone
+            targetGrid.addEventListener('dragover', handleOrderDragOver);
+            targetGrid.addEventListener('dragleave', handleOrderDragLeave);
+            targetGrid.addEventListener('drop', handleOrderDrop);
+        }
+
+        function handleOrderDragStart(e) {
+            draggedOrderItem = e.target.dataset.formula;
+            e.target.classList.add('dragging');
+            e.dataTransfer.effectAllowed = 'move';
+        }
+
+        function handleOrderDragEnd(e) {
+            e.target.classList.remove('dragging');
+        }
+
+        function handleOrderDragOver(e) {
+            e.preventDefault();
+            e.currentTarget.classList.add('drag-over');
+            e.dataTransfer.dropEffect = 'move';
+        }
+
+        function handleOrderDragLeave(e) {
+            e.currentTarget.classList.remove('drag-over');
+        }
+
+        function handleOrderDrop(e) {
+            e.preventDefault();
+            e.currentTarget.classList.remove('drag-over');
+            if (draggedOrderItem) {
+                moveToTarget(draggedOrderItem);
+                draggedOrderItem = null;
+            }
+        }
+
+        function moveToTarget(formula) {
+            // Vérifier si la molécule n'est pas déjà dans la cible
+            if (orderUserSequence.includes(formula)) return;
+            
+            orderUserSequence.push(formula);
+            
+            // Retirer de la source
+            const sourceItem = document.querySelector(`#order-source .order-molecule-item[data-formula="${formula}"]`);
+            if (sourceItem) sourceItem.remove();
+            
+            // Ajouter à la cible
+            const targetGrid = document.getElementById('order-target');
+            const item = document.createElement('div');
+            item.className = 'order-molecule-item';
+            item.dataset.formula = formula;
+            item.textContent = formula;
+            
+            // Permettre de retirer de la cible
+            item.addEventListener('click', () => removeFromTarget(formula));
+            item.style.cursor = 'pointer';
+            
+            targetGrid.appendChild(item);
+        }
+
+        function removeFromTarget(formula) {
+            // Retirer de la séquence utilisateur
+            orderUserSequence = orderUserSequence.filter(f => f !== formula);
+            
+            // Retirer visuellement de la cible
+            const targetItem = document.querySelector(`#order-target .order-molecule-item[data-formula="${formula}"]`);
+            if (targetItem) targetItem.remove();
+            
+            // Remettre dans la source
+            const sourceGrid = document.getElementById('order-source');
+            const item = document.createElement('div');
+            item.className = 'order-molecule-item';
+            item.draggable = true;
+            item.dataset.formula = formula;
+            item.textContent = formula;
+            
+            item.addEventListener('dragstart', handleOrderDragStart);
+            item.addEventListener('dragend', handleOrderDragEnd);
+            item.addEventListener('click', () => moveToTarget(formula));
+            
+            sourceGrid.appendChild(item);
+        }
+
+        function checkOrderGame() {
+            const feedback = document.getElementById('order-feedback');
+            
+            if (orderUserSequence.length !== orderCorrectSequence.length) {
+                feedback.innerHTML = '<div class="feedback error">❌ Place toutes les molécules dans la zone avant de vérifier !</div>';
+                return;
+            }
+            
+            let correct = true;
+            for (let i = 0; i < orderUserSequence.length; i++) {
+                if (orderUserSequence[i] !== orderCorrectSequence[i]) {
+                    correct = false;
+                    break;
+                }
+            }
+            
+            if (correct) {
+                feedback.innerHTML = '<div class="feedback success">🎉 Parfait ! Tu as bien classé les molécules du plus petit au plus grand nombre d\'atomes !</div>';
+            } else {
+                feedback.innerHTML = `<div class="feedback error">❌ Ce n'est pas le bon ordre. L'ordre correct est : ${orderCorrectSequence.map(f => `${f} (${molecules[f].atoms.length})`).join(' → ')}</div>`;
+            }
+        }
+
+        // JEU 11: Trouve l'intrus
+        let intrusScore = 0;
+        let intrusTotal = 0;
+
+        const fakeFormulas = ["H₃O", "C₂O", "N₄", "CH₅", "O₃H", "H₂N₂"];
+
+        function newIntrusQuestion() {
+            const realFormulas = Object.keys(molecules);
+            const selected = [];
+            
+            for (let i = 0; i < 3; i++) {
+                selected.push(realFormulas[Math.floor(Math.random() * realFormulas.length)]);
+            }
+            
+            const intrus = fakeFormulas[Math.floor(Math.random() * fakeFormulas.length)];
+            selected.push(intrus);
+            selected.sort(() => Math.random() - 0.5);
+            
+            const grid = document.getElementById('intrus-options');
+            grid.innerHTML = '';
+            
+            selected.forEach(formula => {
+                const btn = document.createElement('button');
+                btn.className = 'quiz-option';
+                btn.textContent = formula;
+                btn.onclick = () => checkIntrus(formula, intrus);
+                grid.appendChild(btn);
+            });
+            
+            document.getElementById('intrus-feedback').innerHTML = '';
+        }
+
+        function checkIntrus(selected, correct) {
+            intrusTotal++;
+            const feedback = document.getElementById('intrus-feedback');
+            
+            if (selected === correct) {
+                intrusScore++;
+                feedback.innerHTML = '<div class="feedback success">✅ Bravo ! C\'était bien l\'intrus !</div>';
+            } else {
+                feedback.innerHTML = `<div class="feedback error">❌ Non, l'intrus était ${correct}</div>`;
+            }
+            
+            document.getElementById('intrus-score').textContent = intrusScore;
+            document.getElementById('intrus-total').textContent = intrusTotal;
+            
+            setTimeout(newIntrusQuestion, 2500);
+        }
+
+        // JEU 12: Rapidité
+        let speedScore = 0;
+        let speedTimer = null;
+        let speedTimeLeft = 30;
+
+        function startSpeedGame() {
+            speedScore = 0;
+            speedTimeLeft = 30;
+            document.getElementById('speed-score').textContent = '0';
+            document.getElementById('speed-time').textContent = '30';
+            document.getElementById('speed-feedback').innerHTML = '';
+            document.getElementById('speed-start-btn').style.display = 'none';
+            
+            generateSpeedItems();
+            
+            speedTimer = setInterval(() => {
+                speedTimeLeft--;
+                document.getElementById('speed-time').textContent = speedTimeLeft;
+                
+                if (speedTimeLeft <= 0) {
+                    endSpeedGame();
+                }
+            }, 1000);
+        }
+
+        function generateSpeedItems() {
+            const grid = document.getElementById('speed-grid');
+            grid.innerHTML = '';
+            
+            const allItems = [...Object.keys(molecules), 'H', 'C', 'O', 'N'];
+            const selected = [];
+            
+            for (let i = 0; i < 9; i++) {
+                const item = allItems[Math.floor(Math.random() * allItems.length)];
+                selected.push(item);
+            }
+            
+            selected.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'speed-item';
+                div.textContent = item;
+                
+                const isMolecule = molecules[item] !== undefined;
+                div.classList.add(isMolecule ? 'molecule' : 'atom');
+                
+                div.onclick = () => clickSpeedItem(isMolecule);
+                grid.appendChild(div);
+            });
+        }
+
+        function clickSpeedItem(isMolecule) {
+            if (isMolecule) {
+                speedScore++;
+                document.getElementById('speed-score').textContent = speedScore;
+                generateSpeedItems();
+            } else {
+                document.getElementById('speed-feedback').innerHTML = '<div class="feedback error">❌ C\'est un atome, pas une molécule !</div>';
+                setTimeout(() => {
+                    document.getElementById('speed-feedback').innerHTML = '';
+                }, 1000);
+            }
+        }
+
+        function endSpeedGame() {
+            clearInterval(speedTimer);
+            document.getElementById('speed-grid').innerHTML = `
+                <div style="grid-column: 1/-1; text-align: center; padding: 2rem;">
+                    <h3 style="color: #00ffff; text-shadow: 0 0 10px rgba(0, 255, 255, 0.8); font-size: 2rem;">
+                        Temps écoulé !
+                    </h3>
+                    <p style="font-size: 1.5rem; margin-top: 1rem;">
+                        Score final : ${speedScore} molécules trouvées
+                    </p>
+                </div>
+            `;
+            document.getElementById('speed-start-btn').style.display = 'inline-block';
+        }
     </script>
 </body>
 </html>
